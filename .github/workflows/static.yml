@@ -39,7 +39,5 @@ jobs:
           # Upload entire repository
           path: '.'
       - name: Deploy to GitHub Pages
-        env:
-          API_KEY: ${{ secrets.CONTACT_US_URL }}
         id: deployment
         uses: actions/deploy-pages@v4
