@@ -1,5 +1,4 @@
-const CONTACT_US_URL = process.env.CONTACT_US_URL
-console.log(`contact us api:\t${CONTACT_US_URL}`)
+const CONTACT_US_URL = 'https://shorturl.at/dqJL6'
 
 function submitForm() {
     // Get form values
