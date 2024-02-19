@@ -375,6 +375,7 @@ img {
 
 .work__img img {
   transition: 1s;
+  color: #fff;
 }
 
 .work__img img:hover {
