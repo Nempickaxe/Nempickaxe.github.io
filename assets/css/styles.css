@@ -298,7 +298,7 @@ img {
 .skills__grp {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px; /* Adjust the gap between grid items as needed */
   justify-items: center;
 }
@@ -314,7 +314,7 @@ img {
   font-weight: var(--font-semi);
   padding: 1rem 1rem;
   margin-bottom: var(--mb-4);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
 }
 
@@ -330,7 +330,6 @@ img {
   display: flex;
   align-items: center;
 }
-
 
 .skills__bar {
   position: absolute;
@@ -596,7 +595,7 @@ img {
 
 .nav__link.button {
   padding: 5px 15px;
-  background-color:#0056b3;
+  background-color: #0056b3;
   color: #fff; /* Button text color */
   border-radius: 5px;
   transition: background-color 0.3s ease-in-out;
