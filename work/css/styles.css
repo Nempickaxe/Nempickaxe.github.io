@@ -1,4 +1,37 @@
 /* General Styles */
+.header {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Image on left, empty space in the middle, Home button on the right */
+    align-items: center; /* Vertically center items */
+    padding: 10px; /* Add some padding for spacing */
+}
+
+.author-photo {
+    width: 100px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    border: 2px solid #000; /* Set border width and style */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    padding: 2px; /* Optional: adds some space between the image and border */
+}
+
+.spacer {
+    /* This will take up the space between the image and the home button */
+}
+
+.home-button {
+    text-decoration: none; /* Remove underline from link */
+    color: #000; /* Set text color */
+    font-weight: bold; /* Make text bold */
+    padding: 10px; /* Add some padding */
+    border: 1px solid #000; /* Optional: add a border */
+    border-radius: 5px; /* Optional: add rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.home-button:hover {
+    background-color: #f0f0f0; /* Change background on hover */
+}
+
 body {
   font-family: "Times New Roman", Times, serif; /* Classic serif font for a formal look */
   line-height: 1.6; /* Improved readability */
