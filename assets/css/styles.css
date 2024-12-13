@@ -581,57 +581,6 @@ img {
   }
 }
 
-
-/* ===== WORK ===== */
-.work__container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-content: center;
-}
-
-.work__img {
-  box-shadow: 0px 4px 25px rgba(14, 36, 49, 0.15);
-  border-radius: 0.5rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  color: #000;
-}
-
-.work__img img {
-  transition: transform 1s;
-}
-
-.work__img:hover img {
-  transform: scale(1.1);
-}
-
-.work__img p {
-  padding: 1rem;
-}
-
-
-.work__img p {
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Add more styles as needed */
-
-.work-para {
-  margin: 2rem 2rem; /* Adjust as needed */
-  max-height: 3rem;
-  font-size: 1rem; /* Adjust the font size */
-  color: #333; /* Set the text color */
-  text-align: justify; /* Adjust the text alignment */
-  padding: 0 10px; /* Adjust the left padding */
-}
-
 .resume-button a {
   display: inline-block;
   padding: 4px 8px;
@@ -659,4 +608,58 @@ img {
 
 .nav__list .nav__item:last-child {
   margin-left: 0; /* Adjust the margin as needed */
+}
+
+/* ===== WORK ===== */
+.work {
+  margin: 0 auto; /* Centers the container itself horizontally */
+  max-width: 60%; /* Makes the container narrower relative to its parent or viewport */
+  width: 100%; /* Ensures it doesn't exceed the parent's width */
+}
+
+.work > * {
+  margin-bottom: 1rem; /* Adds spacing between items */
+}
+
+/* Add more styles as needed */
+
+.work-para {
+  max-height: 3rem;
+  font-size: 1rem; /* Adjust the font size */
+  color: #333; /* Set the text color */
+  text-align: left; /* Adjust the text alignment */
+  padding: 0 10px; /* Adjust the left padding */
+}
+
+.work-list {
+  padding: 0; /* Remove any default padding */
+  margin: var(--mb-4) 0; /* Add margin for spacing */
+  margin: 2rem 5rem;
+}
+
+.work-list ol {
+  margin-bottom: var(--mb-2); /* Space between each list item */
+  font-size: var(--normal-font-size); /* Set font size */
+  color: var(--second-color); /* Set text color */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.work-list ol:hover {
+  color: var(--first-color); /* Change color on hover */
+}
+
+.work-list a {
+  font-weight: var(--font-semi); /* Set font weight */
+  position: relative; /* Position for pseudo-elements if needed */
+}
+
+.work-list a:hover::after {
+  position: absolute; /* Position the after element */
+  content: ""; /* Create a decorative line under the link */
+  width: 100%; /* Full width of the link */
+  height: 2px; /* Thickness of the line */
+  background-color: var(--first-color); /* Color of the line */
+  left: 0; /* Align to the left */
+  bottom: -5px; /* Position below the text */
+  transition: width 0.3s ease; /* Smooth width transition */
 }

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complement and Substitute Relationships</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
 </head>
 <body>
     <h1>Problem We Are Trying to Address</h1>
@@ -142,11 +145,11 @@
 
 <h5>Calculating the Probability of an Edge</h5>
 <p>Consider a single stub belonging to transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>. The probability of this stub connecting to one of the <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup></span> stubs of product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> is:</p>
-<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(\frac{d_i^{(1)}}{m}\)</span></p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup> / m</span></p>
 <p>This is because there are <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup></span> stubs belonging to product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> out of a total of <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">m</span> stubs in the product node set.</p>
 
-<p>Since there are <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> of <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>, if we approximate the connecting process as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> independent Bernoulli trials with probability distribution <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">B(d<sub>l</sub><sup>(0)</sup>,  \frac{d_i^{(1)}}{m})</span>, the probability of having at least 1 edge forming can be written as (1 - probability of no edge formation):</p>
-<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( p_{li} \approx 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} \)</span></p>
+<p>Since there are <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> of <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>, if we approximate the connecting process as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> independent Bernoulli trials with probability distribution <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">B(d<sub>l</sub><sup>(0)</sup>, d<sub>i</sub><sup>(1)</sup> / m)</span></p>, the probability of having at least 1 edge forming can be written as (1 - probability of no edge formation):</p>
+<p>$$ p_{li} \approx 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} $$</p>
 <p>Simplifying above based on Binomial Expansion:</p>
 <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( p_{li} = 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} \rightarrow 1 - \left( 1 - \frac{d_l^{(0)} d_i^{(1)}}{m} \right) = \frac{d_l^{(0)} d_i^{(1)}}{m}, \text{ as } d_i^{(1)} \rightarrow 0 \)</span></p>
 
