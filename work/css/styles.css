@@ -1,0 +1,124 @@
+/* General Styles */
+body {
+    font-family: 'Times New Roman', Times, serif; /* Classic serif font for a formal look */
+    line-height: 1.6; /* Improved readability */
+    margin: 80px 200px; /* Reduced margins around the document */
+    color: #333; /* Default text color */
+    background-color: #f4f6f9; /* Soft light background for contrast */
+}
+
+/* Container for centering content */
+.container {
+    max-width: 800px; /* Maximum width for the paper */
+    margin: 0 auto; /* Center the container */
+    background-color: #ffffff; /* White background for the content area */
+    padding: 30px; /* Increased padding for the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5em; /* Font size for h1 */
+    text-align: left; /* Align h1 text to the left */
+    margin: 20px 0; /* Top and bottom margin for h1 */
+    color: #003366; /* Dark blue color for h1 */
+    font-weight: bold; /* Bold h1 */
+}
+
+h2 {
+    font-size: 2em; /* Font size for h2 */
+    text-align: left; /* Align h2 text to the left */
+    margin: 18px 0; /* Top and bottom margin for h2 */
+    color: #00509e; /* Medium blue color for h2 */
+    font-weight: bold; /* Bold h2 */
+}
+
+h3 {
+    font-size: 1.75em; /* Font size for h3 */
+    text-align: left; /* Align h3 text to the left */
+    margin: 16px 0; /* Top and bottom margin for h3 */
+    color: #007acc; /* Lighter blue color for h3 */
+    font-weight: bold; /* Bold h3 */
+}
+
+h4 {
+    font-size: 1.5em; /* Font size for h4 */
+    text-align: left; /* Align h4 text to the left */
+    margin: 14px 0; /* Top and bottom margin for h4 */
+    color: #0099ff; /* Bright blue color for h4 */
+    font-weight: bold; /* Bold h4 */
+}
+
+h5 {
+    font-size: 1.25em; /* Font size for h5 */
+    text-align: left; /* Align h5 text to the left */
+    margin: 12px 0; /* Top and bottom margin for h5 */
+    color: #00bfff; /* Sky blue color for h5 */
+    font-weight: bold; /* Bold h5 */
+}
+
+/* Paragraphs */
+p {
+    margin: 15px 0; /* Margin for paragraphs */
+    text-align: justify; /* Justify text for a neat appearance */
+    color: #333; /* Default paragraph text color */
+}
+
+/* Math Equations */
+.math-equation {
+    display: inline; /* Inline display for equations */
+    margin: 0 5px; /* Margin on left and right for spacing */
+    font-size: 1.2em; /* Slightly larger font size for equations */
+    color: #465e6e; /* Consistent color for equations */
+    font-family: 'Georgia', serif; /* Serif font for equations */
+}
+
+/* Lists */
+ul, ol {
+    margin: 15px 0; /* Margin for lists */
+    padding-left: 20px; /* Indent lists */
+}
+
+/* Tables */
+table {
+    width: 100%; /* Full width for tables */
+    border-collapse: collapse; /* Collapse borders */
+    margin: 20px 0; /* Margin for tables */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Border for table cells */
+    padding: 10px; /* Padding within cells */
+    text-align: left; /* Left-align text */
+}
+
+th {
+    background-color: #e8f4fa; /* Light blue background for header */
+    color: #003366; /* Dark blue color for header text */
+    font-weight: bold; /* Bold header text */
+}
+
+/* Footer */
+footer {
+    margin-top: 40px; /* Space above footer */
+    font-size: 0.9em; /* Smaller font size for footer */
+    text-align: center; /* Center footer text */
+    color: #555; /* Dark grey color for footer */
+}
+
+/* Citation Styles */
+.citation {
+    font-style: italic; /* Italic for citations */
+    margin: 10px 0; /* Margin for citations */
+    color: #666; /* Grey color for citations */
+}
+
+/* Blockquote Styles */
+blockquote {
+    margin: 20px 0; /* Margin for blockquotes */
+    padding: 10px 20px; /* Padding for blockquotes */
+    border-left: 4px solid #007acc; /* Left border for blockquotes */
+    background-color: #f9f9f9; /* Background for blockquotes */
+    font-style: italic; /* Italic text for blockquotes */
+}

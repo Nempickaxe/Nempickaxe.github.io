@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complement and Substitute Relationships</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>Problem We Are Trying to Address</h1>
+    <p>We are trying to implement a paper to calculate complement and substitute relationships between the products: <a href="https://www.researchgate.net/publication/354140320_Extracting_complements_and_substitutes_from_sales_data_a_network_perspective" target="_blank">Extracting complements and substitutes from sales data</a>.</p>
+
+    <section id="usefulness">
+        <h1>Why This Could Be Useful</h1>
+        <p>Identifying and quantifying complementary and substitute relationships between products has significant practical applications in the retail sector. By leveraging a network-based approach from sales transaction data, retailers can gain valuable insights to optimize their business operations. Here are some key benefits:</p>
+        
+        <ul>
+            <li>
+                <strong>Strategic Product Placement and Shelf Arrangement:</strong> Understanding frequently purchased complementary items allows retailers to place these products together in stores or online catalogs, encouraging additional purchases. For example, positioning salad tomatoes and cucumbers nearby can lead to higher sales of both.
+            </li>
+            <li>
+                <strong>Effective Cross-Selling and Product Bundling:</strong> Retailers can create attractive bundles or targeted cross-selling strategies by leveraging complementary relationships. For instance, offering discounts on bundles like hot dogs and hot dog buns can boost overall sales.
+            </li>
+            <li>
+                <strong>Informed Inventory Management:</strong> Identifying substitutable products helps optimize inventory levels by avoiding overstocking and ensuring alternatives are available, reducing costs and minimizing stockouts.
+            </li>
+            <li>
+                <strong>Targeted Promotions and Marketing Campaigns:</strong> Insights into product relationships enable effective promotions, such as discounts on complementary items or promotions for substitutes when certain products are out of stock.
+            </li>
+            <li>
+                <strong>Personalized Recommendations:</strong> E-commerce platforms can enhance customer experiences with recommendation engines that suggest complementary products based on a user’s cart or purchase history.
+            </li>
+            <li>
+                <strong>Market Basket Analysis and Customer Behavior:</strong> The network-based approach provides valuable tools for analyzing purchase patterns, leading to better decision-making in multiple business areas.
+            </li>
+            <li>
+                <strong>Product Assortment Optimization:</strong> Retailers can refine product offerings by understanding complementary and substitute relationships, improving profitability and customer satisfaction.
+            </li>
+            <li>
+                <strong>Adapting to Changing Trends and Customer Preferences:</strong> Temporal analysis of product relationships reveals shifts in trends, helping retailers stay proactive and relevant.
+            </li>
+        </ul>
+    
+        <p>Additional potential applications include:</p>
+        
+        <ul>
+            <li>
+                <strong>Competitive Analysis:</strong> Understanding competitors' product pairings can inform a retailer’s bundling strategies and improve market positioning.
+            </li>
+            <li>
+                <strong>Pricing Strategies:</strong> Insights into product relationships can guide pricing decisions to maximize profitability, such as adjusting prices of high-demand complementary items.
+            </li>
+        </ul>
+    </section>
+
+    <section id="approach">
+        <h1>Approach of this Paper</h1>
+        <p>Understanding product transaction relationships in the form of bipartite networks.</p>
+    
+        <figure>
+            <img src="images/network_diagram.png" alt="Bipartite Network Illustration">
+            <figcaption>Representation of a bipartite network using transactions and products.</figcaption>
+        </figure>
+    
+        <p>Using the biadjacency matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(b)</sup> = (A<sub>li</sub>) ∈ {0, 1}<sup>n<sub>t</sub>×n<sub>p</sub></sup></span> to represent the product-purchase network, where <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub></span> is the number of transaction nodes, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>p</sub></span> is the number of product nodes, and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>li</sub> = 1</span> if product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> is purchased in transaction <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> and 0 otherwise.</p>
+
+        <ul>
+            <li>n<sub>t</sub> is the number of transaction nodes</li>
+            <li>n<sub>p</sub> is the number of product nodes</li>
+            <li>A<sub>li</sub> = 1 if product i is purchased in transaction l, and 0 otherwise</li>
+        </ul>
+    
+        <h2>Assumptions</h2>
+        <ol>
+            <li>Complements are products that appear in the same transactions significantly more frequently than expected.</li>
+            <li>The degree of complementarity between complements is positively correlated with how frequently they co-occur in transactions.</li>
+            <li>Substitutes are products that share the same complements but appear in the same transactions significantly less frequently.</li>
+            <li>The degree of substitutability between substitutes is positively correlated with how similar their complements are.</li>
+        </ol>
+    </section>
+    
+    <h2>Null Model Approach</h2>
+        <p>This section details how to construct two unweighted unipartite networks to represent complementary and substitute relationships between products, derived from a bipartite product-purchase network.</p>
+        <ul>
+            <li>The initial step involves building a bipartite product-purchase network from sales data, with nodes representing both transactions and products.</li>
+            <li>An edge connects a transaction node and a product node if that product was part of the transaction. This network is then analyzed to extract product relationships based on how product nodes connect.</li>
+        </ul>
+
+        <h3>Determining Significant Relationships</h3>
+        <p>To determine <strong>significant relationships</strong> between products, the sources introduce the concept of <strong>common neighbors</strong> in the bipartite network.</p>
+        <ul>
+            <li>Two product nodes share a common neighbor if they are both purchased within the same transaction.</li>
+            <li><strong>Null models</strong> are then applied to determine whether the observed number of common neighbors between two products is significantly more (indicating a <strong>complementary relationship</strong>) or significantly less (suggesting a <strong>substitute relationship</strong>) than expected by chance.</li>
+        </ul>
+        <p>The sources propose two null models:</p>
+    
+        <h4><strong>Variant of Bipartite Erdős–Rényi (ER) Models</strong></h4>
+        <p>This model assigns a different connecting probability to each product, assuming a fixed probability for each edge to appear independent of others. Each product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> is assigned a unique connecting probability, denoted as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>i</sub></span>. The probability of a transaction node being connected to both product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> is then the product of their respective probabilities: <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>i</sub> p<sub>j</sub></span>.</p>
+        
+        <h5>Common Neighbors as a Random Variable</h5>
+        <p>The number of common neighbors, represented by <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span>, becomes a random variable <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">X<sub>ij</sub></span>, following a binomial distribution:</p>
+        <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">X<sub>ij</sub> ~ Bernoulli(<span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub></span>, p<sub>i</sub> p<sub>j</sub>)</span></p>
+        <p>Here:</p>
+        <ul>
+            <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub></span> is the total number of transaction nodes.</li>
+            <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>i</sub> p<sub>j</sub></span> is the probability of a transaction node being connected to both product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>.</li>
+        </ul>
+        
+        <h5>Approximation with Normal Distribution</h5>
+        <p>Assume a sufficiently large <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub></span> and apply the Central Limit Theorem to approximate the binomial distribution with a normal distribution:</p>
+        <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">N(μ<sub>ij</sub>, σ<sub>ij</sub><sup>2</sup>)</span></p>
+        <p>The parameters of this normal distribution are:</p>
+        <ul>
+            <li>μ<sub>ij</sub> = <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub> p<sub>i</sub> p<sub>j</sub></span> (mean)</li>
+            <li>σ<sub>ij</sub><sup>2</sup> = <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub> p<sub>i</sub> p<sub>j</sub> (1 - p<sub>i</sub> p<sub>j</sub>)</span> (variance)</li>
+        </ul>
+        
+        <h5>Determining Significance</h5>
+        <p>This normal approximation allows for the definition of significance levels to determine whether the observed number of common neighbors is significantly more or less than expected. The sources use significance levels <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">α<sub>m</sub></span> for significantly more and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">α<sub>l</sub></span> for significantly less.</p>
+        <p>Significantly More: <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span> is considered significantly more than expected if:</p>
+        <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub> > n<sub>t</sub> p<sub>i</sub> p<sub>j</sub> + Φ<sup>-1</sup>(1 - α<sub>m</sub>) √(n<sub>t</sub> p<sub>i</sub> p<sub>j</sub> (1 - p<sub>i</sub> p<sub>j</sub>))</span></p>
+        <p>Significantly Less: <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span> is deemed significantly less than expected if:</p>
+        <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub> < n<sub>t</sub> p<sub>i</sub> p<sub>j</sub> - Φ<sup>-1</sup>(1 - α<sub>l</sub>) √(n<sub>t</sub> p<sub>i</sub> p<sub>j</sub> (1 - p<sub>i</sub> p<sub>j</sub>))</span></p>
+        <p>where <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">Φ<sup>-1</sup>(·)</span> is the inverse cumulative distribution function of the standard normal distribution <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">(N(0, 1))</span>.</p>
+        
+        <h5>Estimating Probabilities</h5>
+        <p>The connecting probability for each product, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>i</sub></span>, is estimated using the maximum likelihood estimate:</p>
+        <p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p̂<sub>i</sub> = d<sub>i</sub><sup>(p)</sup> / n<sub>t</sub></span></p>
+        <p>where <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(p)</sup></span> represents the degree of product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> (the number of transactions containing product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span>).</p>
+        
+        <h4><strong>Bipartite Configuration Models (BiCMs)</strong></h4>
+<p>Introduce the Bipartite Configuration Model (BiCM) as a method for generating random bipartite networks with specified degree sequences. This model serves as a more refined null model compared to the ER model, as it accounts for the heterogeneity in both transaction node degrees (basket sizes) and product node degrees (product popularity).</p>
+
+<h5>Basics of the BiCM</h5>
+<p>The BiCM works by assigning a pre-determined number of "half-edges" or "stubs" to each node, corresponding to its degree. These stubs are then randomly connected to form edges, ensuring that edges only exist between nodes from different sets (transactions and products in this case).</p>
+<p>Let's break down the notation used in the sources:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span>: Degree of transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup></span>: Degree of product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span>.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">m</span>: Total number of edges in the network (equal to the sum of degrees in either set).</li>
+</ul>
+
+<h5>Calculating the Probability of an Edge</h5>
+<p>Consider a single stub belonging to transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>. The probability of this stub connecting to one of the <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup></span> stubs of product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> is:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(\frac{d_i^{(1)}}{m}\)</span></p>
+<p>This is because there are <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(1)</sup></span> stubs belonging to product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> out of a total of <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">m</span> stubs in the product node set.</p>
+
+<p>Since there are <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> of <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>, if we approximate the connecting process as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(0)</sup></span> independent Bernoulli trials with probability distribution <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">B(d<sub>l</sub><sup>(0)</sup>,  \frac{d_i^{(1)}}{m})</span>, the probability of having at least 1 edge forming can be written as (1 - probability of no edge formation):</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( p_{li} \approx 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} \)</span></p>
+<p>Simplifying above based on Binomial Expansion:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( p_{li} = 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} \rightarrow 1 - \left( 1 - \frac{d_l^{(0)} d_i^{(1)}}{m} \right) = \frac{d_l^{(0)} d_i^{(1)}}{m}, \text{ as } d_i^{(1)} \rightarrow 0 \)</span></p>
+
+<h5>Probability of Common Neighbors</h5>
+<p>This can be extended to calculate the probability of two product nodes, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>, sharing a common transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>. They assume that the connecting process for each stub of node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> can be approximated as independent Bernoulli trials.</p>
+
+<p>However, there's a crucial detail: if transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> is already connected to product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>, the probability of it also being connected to product node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> changes. This is because one stub of node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> is already "occupied" by the connection with <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>, leaving only <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">(d_l^{(0)} - 1)</span> remaining stubs.</p>
+
+<p>Therefore, the probability of product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> sharing transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> becomes:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( p_{ilj}^{(1)} = \frac{d_l^{(0)} d_j^{(1)} (d_l^{(0)} - 1) d_i^{(1)}}{m^2} \)</span></p>
+<p>This equation captures the conditional probability of the second edge forming, given that the first edge already exists.</p>
+
+<p>The number of common neighbors between product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>, denoted as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span>, can be expressed as the sum of Bernoulli random variables:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( c_{nij} = \sum_{l=1}^{n_t} \text{Bernoulli}(p_{ilj}) \)</span></p>
+<p>where <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>ilj</sub></span> represents the probability that product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> share transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span> as a common neighbor. This probability can vary across different transaction nodes. Assuming independence between transaction nodes, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span> follows a Poisson binomial distribution. We represent this as:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(X_{ij} \sim \text{PoissonBinomial}(p_{i1j}, p_{i2j}, ..., p_{in_tj}) \)</span></p>
+
+<p>The mean of this distribution, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">μ<sub>ij</sub></span>, is calculated as:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( \mu_{ij} = \sum_{l=1}^{n_t} p_{ilj} = \sum_{l=1}^{n_t} \frac{d_i^{(p)} d_l^{(t)} d_j^{(p)}(d_l^{(t)}-1)}{m^2} = \frac{d_i^{(p)} d_j^{(p)}}{m} \frac{ \langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{ \langle d^{(t)} \rangle} \)</span></p>
+<p>where:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>i</sub><sup>(p)</sup></span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>j</sub><sup>(p)</sup></span> are the degrees of product nodes <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span>, respectively.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d<sub>l</sub><sup>(t)</sup></span> is the degree of transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">l</span>.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">m</span> is the total number of edges in the bipartite network.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(\langle d^{(t)} \rangle = \left( \sum_{l=1}^{n_t} d_l^{(t)} \right) / n_t\)</span> is the average degree of transaction nodes.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(\langle d^{(t)2} \rangle = \left( \sum_{l=1}^{n_t} d_l^{(t)2} \right) / n_t\)</span> is the average of squared degrees of transaction nodes.</li>
+</ul>
+
+<p>Under the condition that the individual Bernoulli probabilities (<span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">p<sub>ilj</sub></span>) are sufficiently small, which is generally the case in sparse real-world networks, the Poisson binomial distribution can be accurately approximated by a Poisson distribution with the same mean:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( Y_{ij} \sim \text{Poisson}(\mu_{ij}) \)</span></p>
+
+<p>This approximation simplifies the significance tests. We can then determine <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">c<sub>nij</sub></span> to be significantly more than expected if:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( 1 - F_{ij}(c_{nij}) < \alpha_m \)</span></p>
+<p>and significantly less than expected if:</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\( F_{ij}(c_{nij}) < \alpha_l \)</span></p>
+
+<p>Here:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">α<sub>m</sub></span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">α<sub>l</sub></span> are the significance levels for determining significantly more and significantly less common neighbors, respectively.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\(F_{ij}(y) = e^{-\mu_{ij}} \sum_{k=0}^y \frac{\mu_{ij}^k}{k!}\)</span> is the cumulative distribution function (CDF) of the Poisson distribution with mean <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">μ<sub>ij</sub></span>.</li>
+</ul>
+
+<p>Both null models help in identifying product pairs with statistically significant deviations in their shared transaction patterns, thus revealing potential complementary or substitute relationships.</p>
+
+<h3>Constructing Unipartite Networks</h3>
+<p>Based on the results of the significance tests applied to the number of common neighbors, two unweighted unipartite networks are constructed, each representing a specific type of product relationship:</p>
+
+<ol>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup></span>: This network, represented by the adjacency matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup></span>, captures products bought together significantly <strong>more</strong> frequently than expected. An element <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>ij</sub><sup>(m)</sup></span> equals 1 if and only if the number of common neighbors between products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> is significantly higher than the null model prediction, and 0 otherwise.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(l)</sup></span>: This network, with adjacency matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(l)</sup></span>, identifies products purchased together significantly <strong>less</strong> frequently than expected. An element <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>ij</sub><sup>(l)</sup></span> equals 1 if and only if the number of common neighbors between products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> is significantly lower than the null model prediction, and 0 otherwise.</li>
+</ol>
+
+<p>Finally, based on these networks and the assumptions about complementary and substitute relationships, two additional networks are constructed:</p>
+
+<ol>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup></span>: This network, represented by <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup></span>, directly indicates complementary product pairs. An element <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>ij</sub><sup>(c)</sup></span> is 1 if and only if products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> are complements (identified as having significantly more common neighbors). This network is essentially the same as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup></span>: <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup> = A<sup>(m)</sup></span>.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup></span>: This network, with adjacency matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup></span>, signifies substitute relationships. An element <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>ij</sub><sup>(s)</sup></span> is 1 if and only if products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> are substitutes. This network is derived from both <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup></span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(l)</sup></span>.</li>
+</ol>
+
+<p>Specifically,</p>
+<p><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup> = I<sub>{A<sup>(m)</sup><sup>T</sup>A<sup>(m)</sup> > 0}</sub> ⊙ A<sup>(l)</sup></span> where this formula ensures that a pair of products is classified as substitutes only if they share at least one common complement (indicated by <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup><sup>T</sup>A<sup>(m)</sup> > 0</span>) and are purchased together significantly less often (indicated by <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(l)</sup></span>).</p>
+
+<p>The element-wise indicator matrix, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">I<sub>{(A<sup>(m)</sup>)<sup>T</sup>A<sup>(m)</sup> > 0}</sub></span>, plays a crucial role here by filtering product pairs that don't meet the shared complement criteria.</p>
+
+<p>These unipartite networks provide a simplified representation of complex purchasing patterns, making it easier to identify and analyze product relationships within a large dataset.</p>
+<h3>Discounting Larger Baskets in Complementarity Calculation</h3>
+<p>The authors introduce a method to identify and quantify the strength of complementary relationships between products using sales data. The key idea is to analyze the frequency of products being purchased together, while accounting for the size of the shopping baskets.</p>
+
+<p>To address the issue of larger baskets being less indicative of a genuine complementary relationship, the authors incorporate a discounting factor based on the transaction degree. The formula for calculating the complementarity score, denoted as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">simo(i, j)</span>, between products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">i</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">j</span> is given by Equation (1):</p>
+
+<p>
+    <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">simo(i, j) = 
+    \frac{\sum_{l=1}^{n_t} \frac{A_{li}A_{lj}}{d(t)_l}}{\sqrt{\left( \sum_{h=1}^{n_t} \frac{A_{hi}}{d(t)_h}\right) \left( \sum_{h=1}^{n_t} \frac{A_{hj}}{d(t)_h}\right)}}</span>
+</p>
+
+<p>In this formula:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>t</sub></span> represents the total number of transactions.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sub>li</sub></span> is an element from the biadjacency matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(b)</sup></span>, of the product-purchase network. It equals 1 if product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_i_</span> was bought in transaction <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_l_</span>, and 0 otherwise.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d(t)<sub>l</sub></span> signifies the degree of transaction node <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_l_</span>, indicating the number of products purchased in that transaction.</li>
+</ul>
+
+<p><strong>The crucial part lies in the term</strong> <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">\frac{1}{d(t)_l}</span> <strong>within the summation.</strong> This term acts as a discounting factor, reducing the contribution of transactions with a larger degree (larger baskets). Intuitively, if two products co-occur in a basket with many other items, their co-purchase might be coincidental. By dividing by the transaction degree, the formula downweights the impact of such larger baskets. Conversely, co-purchases in smaller baskets, where <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">d(t)<sub>l</sub></span> is small, receive a higher weight, as they are more likely to represent a deliberate complementarity.</p>
+
+<h3>From Significance Matrix A to Weighted Matrix W</h3>
+<p>The process of moving from the significance matrix, denoted as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_A_</span> in your query, to the weighted matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_W_</span> involves two key steps:</p>
+
+<ol>
+    <li><strong>Identifying Significant Relationships:</strong> The authors use null models to determine statistically significant relationships, either complementary or substitutable, between products. This results in unweighted unipartite networks represented by matrices <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(m)</sup></span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(l)</sup></span>. These matrices indicate the presence or absence of significant relationships, but they do not quantify the strength of these relationships.</li>
+    <li><strong>Quantifying Relationship Strength:</strong> The authors use the formulas <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">simo</span> (for complementarity) and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">sims</span> (for substitutability) to calculate the strength or degree of these relationships. This step converts the unweighted matrices <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup></span> (for complementarity) and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup></span> (for substitutability) into weighted matrices <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(c)</sup></span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(s)</sup></span>, respectively.</li>
+</ol>
+
+<p>The weighted adjacency matrix of the complement unipartite network, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(c)</sup></span>, is obtained by:</p>
+
+<p>
+    <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(c)</sup> = A<sup>(c)</sup> ⊙ simo(i,j)</span>
+</p>
+
+<p>where:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">⊙</span> represents the element-wise (Hadamard) product of matrices.</li>
+</ul>
+
+<p><strong>In essence, the significant relationship matrix,</strong> <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup></span>, <strong>acts as a filter. The complementarity score, calculated using a measure like</strong> <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">simo</span>, <strong>is only assigned to product pairs that have been identified as having a statistically significant complementary relationship according to the null model.</strong> This ensures that the weighted matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(c)</sup></span> reflects both the presence and the strength of complementarity between products.</p>
+
+<h3>Calculating Substitutability Using <code>sims(i, j)</code></h3>
+<p>Similar to the measure of complementarity, the authors also propose a method to quantify the degree of substitutability between products. The key assumption here is that <strong>products exhibiting similar complementarity patterns with other products are likely substitutes for each other</strong>. For instance, if both <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_Brand A_</span> coffee and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_Brand B_</span> coffee are highly complementary to coffee filters and sugar, they are likely substitutes for each other.</p>
+
+<p>To capture this notion, the authors use the cosine similarity between vectors of complementarity scores. Specifically, for each product, a vector is constructed where each element represents the complementarity score (e.g., calculated using <code>simo</code>) between that product and every other product. The formula for calculating the substitutability score, denoted as <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">sims(i, j)</span>, between products <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_i_</span> and <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_j_</span> is given by:</p>
+
+<p>
+    <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">sims(i, j) = 
+    \frac{\sum_{k=1}^{n_p} W^{(c)}_{ik} W^{(c)}_{jk}}{\sqrt{\left( \sum_{p=1}^{n_p} {W^{(c)}_{ip}}^2 \right) \left( \sum_{p=1}^{n_p} {W^{(c)}_{jp}}^2 \right) }}</span>
+</p>
+
+<p>where:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">n<sub>p</sub></span> represents the total number of products.</li>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(c)</sup><sub>ik</sub></span> denotes the complementarity score between product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_i_</span> and product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_k_</span>, calculated using a measure like <code>simo</code>.</li>
+</ul>
+
+<p><strong>This formula calculates the cosine of the angle between the complementarity score vectors of product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_i_</span> and product <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">_j_</span>.</strong> A smaller angle (higher cosine similarity) indicates a stronger alignment between their complementarity patterns. This implies that the two products have similar complements, and are therefore more likely to be substitutes.</p>
+
+<p>Just as the significance matrix, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(c)</sup></span>, was used to filter the complementarity scores, the significance matrix <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup></span> is used to filter the substitutability scores. The weighted adjacency matrix of the substitute unipartite network is calculated as follows:</p>
+
+<p>
+    <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(s)</sup> = A<sup>(s)</sup> ⊙ sims(i,j)</span>
+</p>
+
+<p>where:</p>
+<ul>
+    <li><span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">⊙</span> represents the element-wise (Hadamard) product of matrices.</li>
+</ul>
+
+<p><strong>This process ensures that the substitutability score is only calculated for product pairs that exhibit a statistically significant substitute relationship based on the null model, as indicated by <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">A<sup>(s)</sup></span>.</strong> The resulting matrix, <span class="math-equation" style="unicode-bidi: bidi-override; direction: ltr;">W<sup>(s)</sup></span>, provides a quantitative measure of the strength of the substitutable relationships between products.</p>
+
+</body>
+</html>
