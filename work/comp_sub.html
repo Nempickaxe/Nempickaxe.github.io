@@ -164,531 +164,409 @@
 
     <h2>Null Model Approach</h2>
     <p>
-      This section details how to construct two unweighted unipartite networks
-      to represent complementary and substitute relationships between products,
-      derived from a bipartite product-purchase network.
+      This section explains how to create two simple networks to identify 
+      complementary and substitute relationships between products. These networks are built from sales data and represent how products are purchased together.
     </p>
     <ul>
       <li>
-        The initial step involves building a bipartite product-purchase network
-        from sales data, with nodes representing both transactions and products.
+        First, we create a network called a bipartite product-purchase network. 
+        Here, two types of nodes are used: 
+        <strong>transactions</strong> (representing individual purchases) 
+        and <strong>products</strong> (items bought in those transactions).
       </li>
       <li>
-        An edge connects a transaction node and a product node if that product
-        was part of the transaction. This network is then analyzed to extract
-        product relationships based on how product nodes connect.
+        In this network, a line (or edge) connects a transaction node to a product node 
+        if that product was included in the transaction. From this, we analyze how products 
+        are linked through shared transactions to identify their relationships.
       </li>
     </ul>
-
-    <h3>Determining Significant Relationships</h3>
+    
+    <h3>How We Identify Important Relationships</h3>
     <p>
-      To determine <strong>significant relationships</strong> between products,
-      the sources introduce the concept of <strong>common neighbors</strong> in
-      the bipartite network.
+      To find meaningful connections between products, the idea of 
+      <strong>common neighbors</strong> is introduced. This means looking at how often two products appear in the same transaction.
     </p>
     <ul>
       <li>
-        Two product nodes share a common neighbor if they are both purchased
-        within the same transaction.
+        If two products are bought together in the same transaction, they share 
+        a <strong>common neighbor</strong>.
       </li>
       <li>
-        <strong>Null models</strong> are then applied to determine whether the
-        observed number of common neighbors between two products is
-        significantly more (indicating a
-        <strong>complementary relationship</strong>) or significantly less
-        (suggesting a <strong>substitute relationship</strong>) than expected by
-        chance.
+        To determine if this shared connection is significant, we use 
+        <strong>null models</strong>. These models help us compare the observed connections to what we would expect by chance.
+      </li>
+      <li>
+        If two products are bought together much more often than expected, 
+        they are likely <strong>complements</strong>. If they are bought together less often than expected, they are likely <strong>substitutes</strong>.
       </li>
     </ul>
-    <p>The sources propose two null models:</p>
+    <p>To do this, two specific null models are proposed:</p>
 
     <h4><strong>Variant of Bipartite Erdős–Rényi (ER) Models</strong></h4>
     <p>
-      This model assigns a different connecting probability to each product,
-      assuming a fixed probability for each edge to appear independent of
-      others. Each product \(i\) is assigned a unique connecting probability,
-      denoted as \(p_i\). The probability of a transaction node being connected
-      to both product nodes \(i\) and \(j\) is then the product of their
-      respective probabilities: \(p_i p_j\).
+      This model provides a simple way to estimate relationships between products 
+      by assigning each product a unique probability of being connected to a transaction. 
+      This probability is called \( p_i \) for product \( i \).
     </p>
-
-    <h5>Common Neighbors as a Random Variable</h5>
     <p>
-      The number of common neighbors, represented by \( c_{nij} \), becomes a
-      random variable \( X_{ij} \), following a binomial distribution:
+      If we want to calculate the chance that two products, \( i \) and \( j \), 
+      are connected to the same transaction, we multiply their individual probabilities:
     </p>
-    <p>\[ X_{ij} \sim \text{Bernoulli}(n_t, p_i p_j) \]</p>
+    <p>\( p_i p_j \)</p>
+    
+    <h5>Counting Shared Transactions</h5>
+    <p>
+      The number of transactions that involve both products \( i \) and \( j \) 
+      is called \( c_{nij} \). In this model, it behaves like a random variable, \( X_{ij} \), 
+      that follows a binomial distribution:
+    </p>
+    <p>\[ X_{ij} \sim \text{Binomial}(n_t, p_i p_j) \]</p>
     <p>Here:</p>
     <ul>
-      <li>\( n_t \) is the total number of transaction nodes.</li>
-      <li>
-        \( p_i p_j \) is the probability of a transaction node being connected
-        to both product nodes \( i \) and \( j \).
-      </li>
+      <li>\( n_t \): Total number of transactions.</li>
+      <li>\( p_i p_j \): The probability of a transaction containing both products \( i \) and \( j \).</li>
     </ul>
-
-    <h5>Approximation with Normal Distribution</h5>
+    
+    <h5>Making Predictions Easier</h5>
     <p>
-      Assume a sufficiently large \( n_t \) and apply the Central Limit Theorem
-      to approximate the binomial distribution with a normal distribution:
+      For a large number of transactions (\( n_t \)), we can simplify this binomial 
+      distribution using the Central Limit Theorem. The distribution of \( X_{ij} \) 
+      can be approximated by a normal distribution:
     </p>
     <p>\( N(\mu_{ij}, \sigma_{ij}^2) \)</p>
     <p>The parameters of this normal distribution are:</p>
     <ul>
-      <li>\( \mu_{ij} = n_t p_i p_j \) (mean)</li>
-      <li>\( \sigma_{ij}^2 = n_t p_i p_j (1 - p_i p_j) \) (variance)</li>
+      <li>\( \mu_{ij} = n_t p_i p_j \): This is the expected number of shared transactions (mean).</li>
+      <li>\( \sigma_{ij}^2 = n_t p_i p_j (1 - p_i p_j) \): This is the variability (variance).</li>
     </ul>
-
-    <h5>Determining Significance</h5>
+    
+    <h5>Finding Significant Relationships</h5>
     <p>
-      This normal approximation allows for the definition of significance levels
-      to determine whether the observed number of common neighbors is
-      significantly more or less than expected. The sources use significance
-      levels \( \alpha_m \) for significantly more and \( \alpha_l \) for
-      significantly less.
+      To decide if two products are significantly more or less connected than expected, 
+      we compare the observed \( c_{nij} \) to the expected mean and variability. 
+      Significance thresholds are set using \( \alpha_m \) (for "more") and \( \alpha_l \) 
+      (for "less"). The rules are:
     </p>
+    <ul>
+      <li>
+        <strong>Significantly More:</strong> \( c_{nij} \) is higher than expected if:
+        <p>
+          \( c_{nij} > n_t p_i p_j + \Phi^{-1}(1 - \alpha_m) \sqrt{n_t p_i p_j (1 - p_i p_j)} \)
+        </p>
+      </li>
+      <li>
+        <strong>Significantly Less:</strong> \( c_{nij} \) is lower than expected if:
+        <p>
+          \( c_{nij} < n_t p_i p_j - \Phi^{-1}(1 - \alpha_l) \sqrt{n_t p_i p_j (1 - p_i p_j)} \)
+        </p>
+      </li>
+    </ul>
     <p>
-      Significantly More: \( c_{nij} \) is considered significantly more than
-      expected if:
+      Here, \( \Phi^{-1}(·) \) is the function used to find significance thresholds 
+      from a standard normal distribution.
     </p>
+    
+    <h5>How Are Probabilities Estimated?</h5>
     <p>
-      \( c_{nij} > n_t p_i p_j + \Phi^{-1}(1 - \alpha_m) \sqrt{n_t p_i p_j (1 -
-      p_i p_j)} \)
-    </p>
-    <p>
-      Significantly Less: \( c_{nij} \) is deemed significantly less than
-      expected if:
-    </p>
-    <p>
-      \( c_{nij} < n_t p_i p_j - \Phi^{-1}(1 - \alpha_l) \sqrt{n_t p_i p_j (1 -
-      p_i p_j)} \)
-    </p>
-    <p>
-      where \( \Phi^{-1}(·) \) is the inverse cumulative distribution function
-      of the standard normal distribution \( N(0, 1) \).
-    </p>
-
-    <h5>Estimating Probabilities</h5>
-    <p>
-      The connecting probability for each product, \( p_i \), is estimated using
-      the maximum likelihood estimate:
+      Each product's connection probability (\( p_i \)) is calculated using data. 
+      We estimate \( p_i \) with:
     </p>
     <p>\( \hat{p}_i = \frac{d_i^{(p)}}{n_t} \)</p>
+    <p>Where:</p>
+    <ul>
+      <li>\( d_i^{(p)} \): The number of transactions that include product \( i \).</li>
+      <li>\( n_t \): Total number of transactions.</li>
+    </ul>
     <p>
-      where \( d_i^{(p)} \) represents the degree of product node \( i \) (the
-      number of transactions containing product \( i \)).
-    </p>
+      This method ensures that our probabilities reflect real purchase behavior, 
+      making it easier to analyze product relationships.
+    </p>    
 
     <h4><strong>Bipartite Configuration Models (BiCMs)</strong></h4>
     <p>
-      Introduce the Bipartite Configuration Model (BiCM) as a method for
-      generating random bipartite networks with specified degree sequences. This
-      model serves as a more refined null model compared to the ER model, as it
-      accounts for the heterogeneity in both transaction node degrees (basket
-      sizes) and product node degrees (product popularity).
+      The Bipartite Configuration Model (BiCM) is a method for creating random bipartite networks while maintaining specific degree sequences. It improves upon the simpler ER model by considering the variability in transaction node degrees (basket sizes) and product node degrees (popularity).
     </p>
-
-    <h5>Basics of the BiCM</h5>
+    
+    <h5>How BiCM Works</h5>
     <p>
-      The BiCM works by assigning a pre-determined number of "half-edges" or
-      "stubs" to each node, corresponding to its degree. These stubs are then
-      randomly connected to form edges, ensuring that edges only exist between
-      nodes from different sets (transactions and products in this case).
+      BiCM assigns a predefined number of "stubs" (half-edges) to each node, corresponding to its degree. These stubs are randomly connected to ensure edges form only between transaction and product nodes. Key terms include:
     </p>
-    <p>Let's break down the notation used in the sources:</p>
     <ul>
-      <li>\( d_l^{(0)} \): Degree of transaction node \( l \).</li>
-      <li>\( d_i^{(1)} \): Degree of product node \( i \).</li>
-      <li>
-        \( m \): Total number of edges in the network (equal to the sum of
-        degrees in either set).
-      </li>
+      <li><strong>\( d_l^{(0)} \):</strong> Degree of a transaction node \( l \).</li>
+      <li><strong>\( d_i^{(1)} \):</strong> Degree of a product node \( i \).</li>
+      <li><strong>\( m \):</strong> Total edges in the network (sum of all node degrees).</li>
     </ul>
-
-    <h5>Calculating the Probability of an Edge</h5>
+    
+    <h5>Edge Formation Probability</h5>
     <p>
-      Consider a single stub belonging to transaction node \( l \). The
-      probability of this stub connecting to one of the \( d_i^{(1)} \) stubs of
-      product node \( i \) is:
-    </p>
-    <p>\[ \frac{d_i^{(1)}}{m} \]</p>
-    <p>
-      This is because there are \( d_i^{(1)} \) stubs belonging to product node
-      \( i \) out of a total of \( m \) stubs in the product node set.
-    </p>
-
-    <p>
-      Since there are \( d_l^{(0)} \) of \( l \), if we approximate the
-      connecting process as \( d_l^{(0)} \) independent Bernoulli trials with
-      probability distribution \( B(d_l^{(0)}, \frac{d_i^{(1)}}{m}) \), the
-      probability of having at least 1 edge forming can be written as (1 -
-      probability of no edge formation):
+      For a stub of transaction node \( l \), the probability of connecting to any of the \( d_i^{(1)} \) stubs of product node \( i \) is:
     </p>
     <p>
-      \[ p_{li} \approx 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}}
+      \[
+      \frac{d_i^{(1)}}{m}
       \]
     </p>
-    <p>Simplifying above based on Binomial Expansion:</p>
     <p>
-      \[ p_{li} = 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}}
-      \rightarrow 1 - \left( 1 - \frac{d_l^{(0)} d_i^{(1)}}{m} \right) =
-      \frac{d_l^{(0)} d_i^{(1)}}{m}, \text{ as } d_i^{(1)} \rightarrow 0 \]
+      With \( d_l^{(0)} \) stubs for transaction node \( l \), the probability of forming an edge is approximately:
     </p>
-
+    <p>
+      \[
+      p_{li} = 1 - \left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}} \approx \frac{d_l^{(0)} d_i^{(1)}}{m}
+      \]
+    </p>
+    
     <h5>Probability of Common Neighbors</h5>
     <p>
-      This can be extended to calculate the probability of two product nodes, \(
-      i \) and \( j \), sharing a common transaction node \( l \). They assume
-      that the connecting process for each stub of node \( l \) can be
-      approximated as independent Bernoulli trials.
-    </p>
-
-    <p>
-      However, there's a crucial detail: if transaction node \( l \) is already
-      connected to product node \( j \), the probability of it also being
-      connected to product node \( i \) changes. This is because one stub of
-      node \( l \) is already "occupied" by the connection with \( j \), leaving
-      only \( (d_l^{(0)} - 1) \) remaining stubs.
-    </p>
-
-    <p>
-      Therefore, the probability of product nodes \( i \) and \( j \) sharing
-      transaction node \( l \) becomes:
+      The probability of two product nodes \( i \) and \( j \) sharing a common transaction node \( l \) is given by:
     </p>
     <p>
-      \[ p_{ilj}^{(1)} = \frac{d_l^{(0)} d_j^{(1)} (d_l^{(0)} - 1)
-      d_i^{(1)}}{m^2} \]
+      \[
+      p_{ilj}^{(1)} = \frac{d_l^{(0)} d_j^{(1)} (d_l^{(0)} - 1) d_i^{(1)}}{m^2}
+      \]
     </p>
     <p>
-      This equation captures the conditional probability of the second edge
-      forming, given that the first edge already exists.
-    </p>
-
-    <p>
-      The number of common neighbors between product nodes \( i \) and \( j \),
-      denoted as \( c_{nij} \), can be expressed as the sum of Bernoulli random
-      variables:
-    </p>
-    <p>\[ c_{nij} = \sum_{l=1}^{n_t} \text{Bernoulli}(p_{ilj}) \]</p>
-    <p>
-      where \( p_{ilj} \) represents the probability that product nodes \( i \)
-      and \( j \) share transaction node \( l \) as a common neighbor. This
-      probability can vary across different transaction nodes. Assuming
-      independence between transaction nodes, \( c_{nij} \) follows a Poisson
-      binomial distribution. We represent this as:
+      The number of common neighbors between product nodes \( i \) and \( j \), denoted \( c_{nij} \), is the sum of probabilities over all transaction nodes:
     </p>
     <p>
-      \[ X_{ij} \sim \text{PoissonBinomial}(p_{i1j}, p_{i2j}, ..., p_{in_tj}) \]
+      \[
+      c_{nij} = \sum_{l=1}^{n_t} \text{Bernoulli}(p_{ilj})
+      \]
     </p>
-
-    <p>The mean of this distribution, \( \mu_{ij} \), is calculated as:</p>
     <p>
-      \[ \mu_{ij} = \sum_{l=1}^{n_t} p_{ilj} = \sum_{l=1}^{n_t} \frac{d_i^{(p)}
-      d_l^{(t)} d_j^{(p)}(d_l^{(t)}-1)}{m^2} = \frac{d_i^{(p)} d_j^{(p)}}{m}
-      \frac{ \langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{ \langle
-      d^{(t)} \rangle} \]
+      This follows a Poisson binomial distribution:
     </p>
-    <p>where:</p>
+    <p>
+      \[
+      X_{ij} \sim \text{PoissonBinomial}(p_{i1j}, p_{i2j}, ..., p_{in_tj})
+      \]
+    </p>
+    
+    <h5>Mean of the Distribution</h5>
+    <p>
+      The mean \( \mu_{ij} \) is calculated as:
+    </p>
+    <p>
+      \[
+      \mu_{ij} = \frac{d_i^{(p)} d_j^{(p)}}{m} \cdot \frac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}
+      \]
+    </p>
     <ul>
-      <li>
-        \(d_i^{(p)}\) and \(d_j^{(p)}\) are the degrees of product nodes \(i\)
-        and \(j\), respectively.
-      </li>
-      <li>\(d_l^{(t)}\) is the degree of transaction node \(l\).</li>
-      <li>\(m\) is the total number of edges in the bipartite network.</li>
-      <li>
-        \(\langle d^{(t)} \rangle = \left( \sum_{l=1}^{n_t} d_l^{(t)} \right) /
-        n_t\) is the average degree of transaction nodes.
-      </li>
-      <li>
-        \(\langle d^{(t)2} \rangle = \left( \sum_{l=1}^{n_t} d_l^{(t)2} \right)
-        / n_t\) is the average of squared degrees of transaction nodes.
-      </li>
+      <li>\( d_i^{(p)} \), \( d_j^{(p)} \): Degrees of product nodes \( i \) and \( j \).</li>
+      <li>\( \langle d^{(t)} \rangle \): Average transaction node degree.</li>
+      <li>\( \langle d^{(t)2} \rangle \): Average squared transaction node degree.</li>
     </ul>
-
+    
+    <h5>Poisson Approximation</h5>
     <p>
-      Under the condition that the individual Bernoulli probabilities
-      (\(p_{ilj}\)) are sufficiently small, which is generally the case in
-      sparse real-world networks, the Poisson binomial distribution can be
-      accurately approximated by a Poisson distribution with the same mean:
+      For sparse networks, the Poisson binomial distribution can be approximated as a Poisson distribution:
     </p>
-    <p>\( Y_{ij} \sim \text{Poisson}(\mu_{ij}) \)</p>
-
     <p>
-      This approximation simplifies the significance tests. We can then
-      determine \(c_{nij}\) to be significantly more than expected if:
+      \[
+      Y_{ij} \sim \text{Poisson}(\mu_{ij})
+      \]
     </p>
-    <p>\( 1 - F_{ij}(c_{nij}) < \alpha_m \)</p>
-    <p>and significantly less than expected if:</p>
-    <p>\( F_{ij}(c_{nij}) < \alpha_l \)</p>
-
-    <p>Here:</p>
+    
+    <h5>Significance Testing</h5>
+    <p>
+      Use the Poisson cumulative distribution function \( F_{ij}(y) \) to test for significant deviations:
+    </p>
     <ul>
-      <li>
-        \(\alpha_m\) and \(\alpha_l\) are the significance levels for
-        determining significantly more and significantly less common neighbors,
-        respectively.
-      </li>
-      <li>
-        \(F_{ij}(y) = e^{-\mu_{ij}} \sum_{k=0}^y \frac{\mu_{ij}^k}{k!}\) is the
-        cumulative distribution function (CDF) of the Poisson distribution with
-        mean \(\mu_{ij}\).
-      </li>
+      <li><strong>Significantly more:</strong> \( 1 - F_{ij}(c_{nij}) < \alpha_m \)</li>
+      <li><strong>Significantly less:</strong> \( F_{ij}(c_{nij}) < \alpha_l \)</li>
     </ul>
-
     <p>
-      Both null models help in identifying product pairs with statistically
-      significant deviations in their shared transaction patterns, thus
-      revealing potential complementary or substitute relationships.
+      Here, \( \alpha_m \) and \( \alpha_l \) are the significance levels, and \( F_{ij}(y) \) is given by:
     </p>
+    <p>
+      \[
+      F_{ij}(y) = e^{-\mu_{ij}} \sum_{k=0}^y \frac{\mu_{ij}^k}{k!}
+      \]
+    </p>
+    
+    <p>
+      This model helps identify product pairs with statistically significant transaction patterns, highlighting potential complementary or substitute relationships.
+    </p>    
 
     <h3>Constructing Unipartite Networks</h3>
     <p>
-      Based on the results of the significance tests applied to the number of
-      common neighbors, two unweighted unipartite networks are constructed, each
-      representing a specific type of product relationship:
+      This section discusses the construction of two unweighted unipartite networks based on significance tests applied to the number of common neighbors. Each network represents a specific type of product relationship.
     </p>
-
+    
     <ol>
       <li>
-        \(A^{(m)}\): This network, represented by the adjacency matrix
-        \(A^{(m)}\), captures products bought together significantly
-        <strong>more</strong> frequently than expected. An element
-        \(A_{ij}^{(m)}\) equals 1 if and only if the number of common neighbors
-        between products \(i\) and \(j\) is significantly higher than the null
-        model prediction, and 0 otherwise.
+        <strong>Network \(A^{(m)}\):</strong> 
+        This network is represented by the adjacency matrix \(A^{(m)}\) and captures products that are bought together significantly <strong>more</strong> frequently than expected. 
+        An element \(A_{ij}^{(m)}\) equals 1 if the number of common neighbors between products \(i\) and \(j\) is significantly higher than what the null model predicts, and 0 otherwise.
       </li>
       <li>
-        \(A^{(l)}\): This network, with adjacency matrix \(A^{(l)}\), identifies
-        products purchased together significantly
-        <strong>less</strong> frequently than expected. An element
-        \(A_{ij}^{(l)}\) equals 1 if and only if the number of common neighbors
-        between products \(i\) and \(j\) is significantly lower than the null
-        model prediction, and 0 otherwise.
+        <strong>Network \(A^{(l)}\):</strong> 
+        This network, represented by the adjacency matrix \(A^{(l)}\), identifies products that are purchased together significantly <strong>less</strong> frequently than expected. 
+        An element \(A_{ij}^{(l)}\) equals 1 if the number of common neighbors between products \(i\) and \(j\) is significantly lower than the null model prediction, and 0 otherwise.
       </li>
     </ol>
-
+    
     <p>
-      Finally, based on these networks and the assumptions about complementary
-      and substitute relationships, two additional networks are constructed:
+      Based on these networks and assumptions about complementary and substitute relationships, two additional networks are constructed:
     </p>
-
+    
     <ol>
       <li>
-        \(A^{(c)}\): This network, represented by \(A^{(c)}\), directly
-        indicates complementary product pairs. An element \(A_{ij}^{(c)}\) is 1
-        if and only if products \(i\) and \(j\) are complements (identified as
-        having significantly more common neighbors). This network is essentially
-        the same as \(A^{(m)}\): \(A^{(c)} = A^{(m)}\).
+        <strong>Complementary Network \(A^{(c)}\):</strong> 
+        This network is represented by \(A^{(c)}\) and indicates complementary product pairs. 
+        An element \(A_{ij}^{(c)}\) is 1 if products \(i\) and \(j\) are complements, meaning they have significantly more common neighbors. 
+        Essentially, this network is the same as \(A^{(m)}\): \(A^{(c)} = A^{(m)}\).
       </li>
       <li>
-        \(A^{(s)}\): This network, with adjacency matrix \(A^{(s)}\), signifies
-        substitute relationships. An element \(A_{ij}^{(s)}\) is 1 if and only
-        if products \(i\) and \(j\) are substitutes. This network is derived
-        from both \(A^{(m)}\) and \(A^{(l)}\).
+        <strong>Substitute Network \(A^{(s)}\):</strong> 
+        This network, represented by the adjacency matrix \(A^{(s)}\), signifies substitute relationships. 
+        An element \(A_{ij}^{(s)}\) is 1 if products \(i\) and \(j\) are substitutes. 
+        This network is derived from both \(A^{(m)}\) and \(A^{(l)}\).
       </li>
     </ol>
-
-    <p>Specifically,</p>
+    
+    <p>Specifically, the relationship between these networks is defined as follows:</p>
     <p>
-      \[ A^{(s)} = I_{\{(A^{(m)})^T A^{(m)} > 0\}} \odot A^{(l)} \] where this
-      formula ensures that a pair of products is classified as substitutes only
-      if they share at least one common complement (indicated by \((A^{(m)})^T
-      A^{(m)} > 0\)) and are purchased together significantly less often
-      (indicated by \(A^{(l)}\)).
+      \[
+      A^{(s)} = I_{\{(A^{(m)})^T A^{(m)} > 0\}} \odot A^{(l)}
+      \]
     </p>
-
     <p>
-      The element-wise indicator matrix, \(I_{\{(A^{(m)})^T A^{(m)} > 0\}}\),
-      plays a crucial role here by filtering product pairs that don't meet the
-      shared complement criteria.
+      In this equation, products are classified as substitutes only if they share at least one common complement (indicated by \((A^{(m)})^T A^{(m)} > 0\)) and are purchased together significantly less often (indicated by \(A^{(l)}\)).
     </p>
-
+    
     <p>
-      These unipartite networks provide a simplified representation of complex
-      purchasing patterns, making it easier to identify and analyze product
-      relationships within a large dataset.
+      The indicator matrix \(I_{\{(A^{(m)})^T A^{(m)} > 0\}}\) plays a crucial role by filtering out product pairs that don't meet the shared complement criteria.
     </p>
+    
+    <p>
+      These unipartite networks simplify the representation of complex purchasing patterns, making it easier to identify and analyze product relationships within a large dataset.
+    </p>
+    
     <h3>Discounting Larger Baskets in Complementarity Calculation</h3>
     <p>
-      The authors introduce a method to identify and quantify the strength of
-      complementary relationships between products using sales data. The key
-      idea is to analyze the frequency of products being purchased together,
-      while accounting for the size of the shopping baskets.
+      The authors propose a method to identify and quantify the strength of complementary relationships between products using sales data. The key idea is to analyze how frequently products are purchased together while considering the size of the shopping baskets.
     </p>
-
+    
     <p>
-      To address the issue of larger baskets being less indicative of a genuine
-      complementary relationship, the authors incorporate a discounting factor
-      based on the transaction degree. The formula for calculating the
-      complementarity score, denoted as \(simo(i, j)\), between products \(i\)
-      and \(j\) is given by Equation (1):
+      To address the issue of larger baskets potentially skewing the analysis, the authors incorporate a discounting factor based on transaction size. The formula for calculating the complementarity score, denoted as \(simo(i, j)\), is given by:
     </p>
-
+    
     <p>
-      \[ simo(i, j) = \frac{\sum_{l=1}^{n_t}
-      \frac{A_{li}A_{lj}}{d(t)_l}}{\sqrt{\left( \sum_{h=1}^{n_t}
-      \frac{A_{hi}}{d(t)_h}\right) \left( \sum_{h=1}^{n_t}
-      \frac{A_{hj}}{d(t)_h}\right)}} \]
+      \[
+      simo(i, j) = \frac{\sum_{l=1}^{n_t} \frac{A_{li}A_{lj}}{d(t)_l}}{\sqrt{\left( \sum_{h=1}^{n_t} \frac{A_{hi}}{d(t)_h}\right) \left( \sum_{h=1}^{n_t} \frac{A_{hj}}{d(t)_h}\right)}}
+      \]
     </p>
-
+    
     <p>In this formula:</p>
     <ul>
-      <li>\(n_t\) represents the total number of transactions.</li>
+      <li>\(n_t\) is the total number of transactions.</li>
       <li>
-        \(A_{li}\) is an element from the biadjacency matrix \(A^{(b)}\), of the
-        product-purchase network. It equals 1 if product \(i\) was bought in
-        transaction \(l\), and 0 otherwise.
+        \(A_{li}\) is an element from the biadjacency matrix \(A^{(b)}\) of the product-purchase network. It equals 1 if product \(i\) was bought in transaction \(l\), and 0 otherwise.
       </li>
       <li>
-        \(d(t)_l\) signifies the degree of transaction node \(l\), indicating
-        the number of products purchased in that transaction.
+        \(d(t)_l\) indicates the degree of transaction node \(l\), which represents the number of products purchased in that transaction.
       </li>
     </ul>
-
+    
     <p>
-      <strong>The crucial part lies in the term</strong> \(\frac{1}{d(t)_l}\)
-      <strong>within the summation.</strong> This term acts as a discounting
-      factor, reducing the contribution of transactions with a larger degree
-      (larger baskets). Intuitively, if two products co-occur in a basket with
-      many other items, their co-purchase might be coincidental. By dividing by
-      the transaction degree, the formula downweights the impact of such larger
-      baskets. Conversely, co-purchases in smaller baskets, where \(d(t)_l\) is
-      small, receive a higher weight, as they are more likely to represent a
-      deliberate complementarity.
+      <strong>The critical aspect is the term</strong> \(\frac{1}{d(t)_l}\) <strong>within the summation.</strong> 
+      This term serves as a discounting factor, diminishing the contribution of transactions with a larger number of products (larger baskets). 
+      If two products co-occur in a basket with many other items, their co-purchase may be coincidental. 
+      By dividing by the transaction degree, the formula downweights the significance of these larger baskets. 
+      Conversely, co-purchases in smaller baskets, where \(d(t)_l\) is smaller, receive a higher weight, as they are more likely to represent genuine complementarity.
     </p>
-
+    
     <h3>From Significance Matrix A to Weighted Matrix W</h3>
     <p>
-      The process of moving from the significance matrix, denoted as \(A\) in
-      your query, to the weighted matrix \(W\) involves two key steps:
+      The transition from the significance matrix \(A\) to the weighted matrix \(W\) involves two key steps:
     </p>
-
+    
     <ol>
       <li>
-        <strong>Identifying Significant Relationships:</strong> The authors use
-        null models to determine statistically significant relationships, either
-        complementary or substitutable, between products. This results in
-        unweighted unipartite networks represented by matrices \(A^{(m)}\) and
-        \(A^{(l)}\). These matrices indicate the presence or absence of
-        significant relationships, but they do not quantify the strength of
-        these relationships.
+        <strong>Identifying Significant Relationships:</strong> 
+        The authors utilize null models to determine statistically significant relationships, either complementary or substitutable, between products. 
+        This results in unweighted unipartite networks represented by matrices \(A^{(m)}\) and \(A^{(l)}\). 
+        These matrices indicate the presence of significant relationships but do not quantify their strength.
       </li>
       <li>
-        <strong>Quantifying Relationship Strength:</strong> The authors use the
-        formulas \(simo\) (for complementarity) and \(sims\) (for
-        substitutability) to calculate the strength or degree of these
-        relationships. This step converts the unweighted matrices \(A^{(c)}\)
-        (for complementarity) and \(A^{(s)}\) (for substitutability) into
-        weighted matrices \(W^{(c)}\) and \(W^{(s)}\), respectively.
+        <strong>Quantifying Relationship Strength:</strong> 
+        The authors calculate the strength or degree of these relationships using the formulas \(simo\) (for complementarity) and \(sims\) (for substitutability). 
+        This step converts the unweighted matrices \(A^{(c)}\) (for complementarity) and \(A^{(s)}\) (for substitutability) into weighted matrices \(W^{(c)}\) and \(W^{(s)}\), respectively.
       </li>
     </ol>
-
+    
     <p>
-      The weighted adjacency matrix of the complement unipartite network,
-      \(W^{(c)}\), is obtained by:
+      The weighted adjacency matrix of the complement unipartite network, \(W^{(c)}\), is derived as follows:
     </p>
-
-    <p>\( W^{(c)} = A^{(c)} \odot simo(i,j) \)</p>
-
+    
+    <p>
+      \[
+      W^{(c)} = A^{(c)} \odot simo(i,j)
+      \]
+    </p>
+    
     <p>where:</p>
     <ul>
       <li>
-        \(\odot\) represents the element-wise (Hadamard) product of matrices.
+        \(\odot\) denotes the element-wise (Hadamard) product of matrices.
       </li>
     </ul>
-
+    
     <p>
-      <strong>In essence, the significant relationship matrix,</strong>
-      \(A^{(c)}\),
-      <strong
-        >acts as a filter. The complementarity score, calculated using a measure
-        like</strong
-      >
-      \(simo\),
-      <strong
-        >is only assigned to product pairs that have been identified as having a
-        statistically significant complementary relationship according to the
-        null model.</strong
-      >
-      This ensures that the weighted matrix \(W^{(c)}\) reflects both the
-      presence and the strength of complementarity between products.
+      <strong>In essence, the significant relationship matrix</strong> \(A^{(c)}\) <strong>acts as a filter.</strong> 
+      The complementarity score, calculated using \(simo\), is only assigned to product pairs that have been identified as having a statistically significant complementary relationship according to the null model. 
+      This ensures that the weighted matrix \(W^{(c)}\) reflects both the presence and strength of complementarity between products.
     </p>
-
+    
     <h3>Calculating Substitutability Using <code>sims(i, j)</code></h3>
-    <p>
-      Similar to the measure of complementarity, the authors also propose a
-      method to quantify the degree of substitutability between products. The
-      key assumption here is that
-      <strong
-        >products exhibiting similar complementarity patterns with other
-        products are likely substitutes for each other</strong
-      >. For instance, if both \(Brand A\) coffee and \(Brand B\) coffee are
-      highly complementary to coffee filters and sugar, they are likely
-      substitutes for each other.
-    </p>
+<p>
+    The authors introduce a method to quantify how substitutable products are for one another. The main idea is that 
+    <strong>products that share similar patterns of complementarity with other products are likely substitutes</strong>. 
+    For example, if both <strong>Brand A</strong> coffee and <strong>Brand B</strong> coffee are complementary to coffee filters and sugar, they are likely substitutes for each other.
+</p>
 
-    <p>
-      To capture this notion, the authors use the cosine similarity between
-      vectors of complementarity scores. Specifically, for each product, a
-      vector is constructed where each element represents the complementarity
-      score (e.g., calculated using <code>simo</code>) between that product and
-      every other product. The formula for calculating the substitutability
-      score, denoted as \(sims(i, j)\), between products \(i\) and \(j\) is
-      given by:
-    </p>
+<p>
+    To measure this, the authors use cosine similarity, which compares vectors of complementarity scores. For each product, a vector is created where each element represents the complementarity score (calculated using <code>simo</code>) between that product and all other products. The formula for the substitutability score, denoted as \(sims(i, j)\), between products \(i\) and \(j\) is:
+</p>
 
-    <p>
-      $$ sims(i, j) = \frac{\sum_{k=1}^{n_p} W^{(c)}_{ik}
-      W^{(c)}_{jk}}{\sqrt{\left( \sum_{p=1}^{n_p} {W^{(c)}_{ip}}^2 \right)
-      \left( \sum_{p=1}^{n_p} {W^{(c)}_{jp}}^2 \right) }} $$
-    </p>
+<p>
+    $$ 
+    sims(i, j) = \frac{\sum_{k=1}^{n_p} W^{(c)}_{ik} W^{(c)}_{jk}}{\sqrt{\left( \sum_{p=1}^{n_p} {W^{(c)}_{ip}}^2 \right) \left( \sum_{p=1}^{n_p} {W^{(c)}_{jp}}^2 \right) }} 
+    $$
+</p>
 
-    <p>where:</p>
-    <ul>
-      <li>\(n_p\) represents the total number of products.</li>
-      <li>
-        \(W^{(c)}_{ik}\) denotes the complementarity score between product \(i\)
-        and product \(k\), calculated using a measure like <code>simo</code>.
-      </li>
-    </ul>
+<p>In this formula:</p>
+<ul>
+    <li>\(n_p\) represents the total number of products.</li>
+    <li>
+        \(W^{(c)}_{ik}\) denotes the complementarity score between product \(i\) and product \(k\), calculated using a measure like <code>simo</code>.
+    </li>
+</ul>
 
-    <p>
-      <strong
-        >This formula calculates the cosine of the angle between the
-        complementarity score vectors of product \(i\) and product
-        \(j\).</strong
-      >
-      A smaller angle (higher cosine similarity) indicates a stronger alignment
-      between their complementarity patterns. This implies that the two products
-      have similar complements, and are therefore more likely to be substitutes.
-    </p>
+<p>
+    <strong>This formula calculates the cosine of the angle between the complementarity score vectors of products \(i\) and \(j\).</strong> 
+    A smaller angle (higher cosine similarity) indicates a stronger alignment in their complementarity patterns, suggesting that the two products are more likely substitutes.
+</p>
 
-    <p>
-      Just as the significance matrix, \(A^{(c)}\), was used to filter the
-      complementarity scores, the significance matrix \(A^{(s)}\) is used to
-      filter the substitutability scores. The weighted adjacency matrix of the
-      substitute unipartite network is calculated as follows:
-    </p>
+<p>
+    Just like how the significance matrix \(A^{(c)}\) was used to filter complementarity scores, the significance matrix \(A^{(s)}\) is used to filter substitutability scores. The weighted adjacency matrix of the substitute unipartite network is calculated as follows:
+</p>
 
-    <p>\( W^{(s)} = A^{(s)} \odot sims(i,j) \)</p>
+<p>
+    $$ W^{(s)} = A^{(s)} \odot sims(i,j) $$
+</p>
 
-    <p>where:</p>
-    <ul>
-      <li>
+<p>In this equation:</p>
+<ul>
+    <li>
         \(\odot\) represents the element-wise (Hadamard) product of matrices.
-      </li>
-    </ul>
+    </li>
+</ul>
 
-    <p>
-      <strong
-        >This process ensures that the substitutability score is only calculated
-        for product pairs that exhibit a statistically significant substitute
-        relationship based on the null model, as indicated by
-        \(A^{(s)}\).</strong
-      >
-      The resulting matrix, \(W^{(s)}\), provides a quantitative measure of the
-      strength of the substitutable relationships between products.
-    </p>
+<p>
+    <strong>This process ensures that substitutability scores are only calculated for product pairs that show a statistically significant substitute relationship according to the null model, as indicated by \(A^{(s)}\).</strong> 
+    The resulting matrix, \(W^{(s)}\), provides a quantitative measure of the strength of the substitutable relationships between products.
+</p>
+
   </body>
 </html>
