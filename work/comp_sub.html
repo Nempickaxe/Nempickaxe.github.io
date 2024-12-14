@@ -345,16 +345,19 @@
     <p>
       The mean \( \mu_{ij} \) is calculated as:
     </p>
-    <p>
-      \[
-      \mu_{ij} = \frac{d_i^{(p)} d_j^{(p)}}{m} \cdot \frac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}
-      \]
-    </p>
+    <p style="border: 2px solid #007BFF; background-color: #f0f8ff; padding: 10px; border-radius: 5px; width: 60%; margin: 0 auto; text-align: center;">
+        \[
+        \mu_{ij} = \frac{d_i^{(p)} d_j^{(p)}}{m} \cdot \frac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}
+        \]
+    </p>  
     <ul>
       <li>\( d_i^{(p)} \), \( d_j^{(p)} \): Degrees of product nodes \( i \) and \( j \).</li>
       <li>\( \langle d^{(t)} \rangle \): Average transaction node degree.</li>
       <li>\( \langle d^{(t)2} \rangle \): Average squared transaction node degree.</li>
     </ul>
+    <p style="font-size: 1.1em; font-weight: bold; background-color: #fff3cd; border: 2px solid #007BFF; border-left: 4px solid #ffc107; padding: 10px; border-radius: 5px;">
+        This marks a major breakthrough! The right side of the equation, which depends on transactions, is constant for every product pair. As a result, the expected mean is exclusively determined by the product of the product pair degrees, enabling the modeling of the simulation using Spark.
+    </p>    
     
     <h5>Poisson Approximation</h5>
     <p>
