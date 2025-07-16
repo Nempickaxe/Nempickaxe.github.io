@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[personal_projects]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib/media/favicon.png</url><title>personal_projects</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Wed, 16 Jul 2025 17:34:28 GMT</lastBuildDate><atom:link href="lib/rss.xml" rel="self" type="application/rss+xml"/><pubDate>Wed, 16 Jul 2025 17:34:27 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[Terraform Crash Course - 1 Hour to Infrastructure as Code]]></title><description><![CDATA[ 
+ <br><br>Title: Terraform Crash Course – 1 Hour to Infrastructure as Code<br>
+Subtitle: Your fast path to provisioning like a pro<br><br>
+<br>What is Infrastructure as Code?<br>
+Why engineers are replacing manual setups with declarative automation.
+<br>Why Terraform?<br>
+A quick look at what makes Terraform the industry standard.
+<br>Terraform Core Concepts<br>
+Providers, resources, state, and how it all works together.
+<br>Hands-on Demo: Local Resource<br>
+Your first .tf file: provision a file on your system.
+<br>Terraform State &amp; Lifecycle<br>
+Understand how Terraform tracks what’s deployed — and what needs to change.
+<br>Variables &amp; Outputs<br>
+Make your code more dynamic and reusable.
+<br>Wrap-Up &amp; Next Steps<br>
+Best practices and where to go after this session.
+<br><br>Title: Manual Infrastructure: What's the Problem?<br>
+<img class="emoji" draggable="false" alt="🔧" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f527.svg" height="16px" style="max-width: 100%;"> Manual setup used to be the norm — clicking around in cloud consoles, tweaking config files, spinning up servers by hand.<br>But as environments grew more complex, this approach began to break down:<br><br><br>
+<br><img class="emoji" draggable="false" alt="❌" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/274c.svg" height="16px" style="max-width: 100%;"> Hard to Reproduce<br>
+No record of what was done — you hope the next person clicks the same buttons in the right order.<br>
+
+<br><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" height="16px" style="max-width: 100%;"> Prone to Human Error<br>
+One misconfigured setting can break a production system.<br>
+
+<br><img class="emoji" draggable="false" alt="👥" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f465.svg" height="16px" style="max-width: 100%;"> Poor Collaboration<br>
+Knowledge is trapped in someone's head or in tribal processes, not in code.<br>
+
+<br><img class="emoji" draggable="false" alt="📈" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4c8.svg" height="16px" style="max-width: 100%;"> Difficult to Scale<br>
+Spinning up identical environments (e.g., staging, test, dev) becomes slow and inconsistent.
+<br><br>Title: What is Infrastructure as Code?<br>
+Infrastructure as Code (IaC) means managing your servers, databases, networks, and other infrastructure just like application code — using files that are versioned, shareable, and automated.<br><br>
+<br>Define Infrastructure Using Code<br>
+Instead of clicking through cloud consoles, you write declarative config files that describe the infrastructure you want.<br>
+
+<br>Version-Controlled<br>
+Store infrastructure in Git. Review it. Track changes. Roll back if needed — just like you would with app code.<br>
+
+<br>Reproducible &amp; Declarative<br>
+You define what you want (not how), and tools like Terraform make it so — across staging, dev, prod.<br>
+
+<br>Automated Provisioning<br>
+Spin up complete environments in minutes, consistently and safely, with minimal manual effort.<br>
+
+<br><br>Think of it like a Dockerfile — but for your entire infrastructure stack.<br><img class="emoji" draggable="false" alt="💡" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4a1.svg" height="16px" style="max-width: 100%;"> IaC helps eliminate “snowflake environments” and turns infrastructure into reliable, testable, reviewable artifacts.<br><br>Title: Why Choose Terraform?<br>
+Terraform is one of the most widely adopted tools for managing infrastructure as code — and for good reason. It strikes a powerful balance between flexibility, scalability, and ease of use.<br><br>Use the same tool and workflow to manage resources across AWS, Azure, GCP, and more — or even across multiple providers at the same time.<br>
+“Write once, apply anywhere.”
+<br><br>You describe what infrastructure you want (not how to build it), using Terraform’s human-friendly configuration language (HCL).<br><br>Define infrastructure components (e.g., VPCs, databases, EC2s) once and reuse them across environments, teams, or projects.<br>
+Write less, scale more.
+<br><br>Terraform knows the difference between what exists and what should exist, helping detect configuration drift and manage changes safely.<br><br>Thousands of ready-made modules and providers on the Terraform Registry — from HashiCorp and the community.<br>
+Speeds up onboarding, prototyping, and production deployments.
+<br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> Terraform lets you scale with confidence — across clouds, teams, and time.<br><br>Title: Terraform’s Architecture<br>
+Terraform follows a simple but powerful workflow to manage infrastructure consistently and predictably.<br><br>
+<br>You write .tf files<br>
+Infrastructure is described using HCL (HashiCorp Configuration Language).<br>
+
+<br>terraform plan<br>
+Terraform compares your desired state (from .tf files) to what already exists and shows what will change — without making any changes yet.<br>
+
+<br>terraform apply<br>
+Executes the plan and makes the changes in your cloud environment — creating, modifying, or deleting resources.<br>
+
+<br><br>
+<br>State File (terraform.tfstate)<br>
+Terraform keeps a snapshot of the current infrastructure state to detect drift and decide what to change.<br>
+
+<br><br>
+<br>Terraform uses providers (AWS, Azure, GCP, local, etc.) to interact with the target platform’s APIs.<br>
+
+<br>
+Example: AWS provider converts .tf config into real EC2 instances, S3 buckets, etc.
+<br><br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> This architecture is what lets Terraform manage real-world infrastructure using simple config files.<br><br>Title: Installing Terraform (Quick Guide)<br>
+<br>Mac: 
+<br>brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+<br>
+<br>Windows: choco install terraform<br>
+
+<br>Linux: Download from <a data-tooltip-position="top" aria-label="https://developer.hashicorp.com/terraform/install#linux" rel="noopener nofollow" class="external-link" href="https://developer.hashicorp.com/terraform/install#linux" target="_blank">terraform.io</a><br>
+
+<br><img class="emoji" draggable="false" alt="👀" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f440.svg" height="16px" style="max-width: 100%;"> Check: terraform -version<br><br>Title: Terraform Core Concepts<br>
+To use Terraform effectively, you only need to understand a few foundational building blocks. These concepts are simple, but incredibly powerful when combined.<br><br>Plugins that let Terraform talk to specific platforms and services.<br>
+Examples: AWS, Azure, Google Cloud, Kubernetes, Docker, Local.<br>
+Terraform gives you a small set of concepts to master — and with them, you can manage anything from storage buckets to full ML workflows on GCP.<br>provider "google" {
+  project = "ml-infra-demo"
+  region  = "us-central1"
+}
+<br><br>The actual infrastructure you want to create — servers, buckets, files, etc.<br> <img class="emoji" draggable="false" alt="📦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4e6.svg" height="16px" style="max-width: 100%;"> Google Cloud Storage (GCS):<br>resource "google_storage_bucket" "data_bucket" {
+  name     = "ml-pipeline-data-bucket"
+  location = "US"
+}
+<br><img class="emoji" draggable="false" alt="🤖" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f916.svg" height="16px" style="max-width: 100%;"> Kubeflow Pipelines (via GKE):<br>resource "google_container_cluster" "kfp_cluster" {
+  name     = "kfp-cluster"
+  location = "us-central1"
+
+  initial_node_count = 1
+
+  node_config {
+    machine_type = "e2-standard-2"
+  }
+}
+<br><br>Make your configs dynamic and reusable.<br>variable "bucket_name" {
+  default = "ml-data-bucket"
+}
+
+# Use with:
+name = var.bucket_name
+<br><br>Group related resources into reusable components.<br>
+Great for DRY code and scaling to real projects.<br>module "gcs_bucket" {
+  source     = "./terraform-google-modules/cloud-storage/google"
+  version    = "~&gt; 3.0"
+  name       = var.bucket_name
+  project_id = var.project
+  location   = "US"
+}
+<br><br>Terraform uses a .tfstate file to track what it deployed.<br>
+<br>Helps detect configuration drift.<br>
+
+<br>In GCP, use remote state via Cloud Storage for team collaboration.
+<br>terraform {
+  backend "gcs" {
+    bucket = "terraform-state-storage"
+    prefix = "ml-infra"
+  }
+}
+<br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> Master these five and you can manage any infrastructure at scale.<br><br>Key Learning Objectives:<br>
+This is a&nbsp;progressive Terraform tutorial/learning repository&nbsp;that demonstrates core Terraform concepts through hands-on examples using the&nbsp;local&nbsp;provider to create files. Each numbered directory represents a learning module that builds upon previous concepts:<br><br>
+Dive into the complete code examples here:<br>
+<img class="emoji" draggable="false" alt="🔗" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f517.svg" height="16px" style="max-width: 100%;"> <a rel="noopener nofollow" class="external-link" href="https://github.com/Nempickaxe/terraform_basics" target="_blank">https://github.com/Nempickaxe/terraform_basics</a>
+<br><img class="emoji" draggable="false" alt="🔁" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f501.svg" height="16px" style="max-width: 100%;"> Run:<br>terraform init 
+terraform plan 
+terraform apply
+<br><br>Title: Terraform Workflow<br>
+Terraform uses a clean, predictable workflow to help you safely manage infrastructure — from creation to teardown.<br><br><br> Initializes the working directory for Terraform.<br>
+<br>Downloads the required provider plugins (e.g., Google Cloud, AWS).<br>
+
+<br>Creates a .terraform/ folder locally.<br>
+
+<br>Run this once when starting a new project or after adding providers/modules.<br>
+
+<br>terraform init
+<br><br>Shows you exactly what Terraform will do — without making any changes.<br>
+<br>Compares your code (.tf files) with existing infrastructure (state).<br>
+
+<br>Outputs a preview of additions, changes, or deletions.<br>
+
+<br>terraform plan
+<br><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Use this to double-check before applying — catch mistakes early.<br><br>Executes the changes described in the plan.<br>
+<br>Creates or modifies real infrastructure to match your config.<br>
+
+<br>Will prompt for confirmation before proceeding.<br>
+
+<br>terraform apply
+<br><img class="emoji" draggable="false" alt="⚠️" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/26a0.svg" height="16px" style="max-width: 100%;"> You can also use -auto-approve, but not recommended for production.<br><br>Safely tears down all resources defined in your configuration.<br>
+<br>Cleans up everything created by Terraform.<br>
+
+<br>Useful for dev/test environments or cleanup tasks.<br>
+
+<br>terraform destroy
+<br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> Tip: Treat your Terraform workflow like git — plan before apply, and destroy with intention.<br><img class="emoji" draggable="false" alt="📦" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4e6.svg" height="16px" style="max-width: 100%;"> “Write code → Plan it → Apply it → Revert when needed.”<br><br>Title: What is terraform.tfstate?<br>
+Terraform uses a special file to keep track of what it created, updated, or destroyed — so it knows exactly what’s real, and what’s just in code.<br><br>
+<br>A JSON file that maps your desired state (from .tf files) to the actual infrastructure on your cloud provider.<br>
+
+<br>Stores metadata like resource names, IDs, IPs, and relationships.<br>
+
+<br>Used during plan and apply to determine what needs to change.<br>
+
+<br><br>
+<br>Enables drift detection:<br>
+If someone makes a manual change outside of Terraform, the state will tell you something’s out of sync.<br>
+
+<br>Powers safe updates:<br>
+Terraform uses the state to ensure it doesn’t accidentally destroy or recreate things you didn’t intend.<br>
+
+<br>Supports incremental changes:<br>
+Only the differences are applied — no full redeploy needed.<br>
+
+<br><br>
+<br>Never edit the state file manually<br>
+(Unless you really know what you’re doing.)<br>
+
+<br>Don’t commit it to Git<br>
+It may contain sensitive data like IPs, secrets, or credentials.<br>
+
+<br>Use remote state for teams<br>
+(e.g., GCS bucket with locking to avoid conflicts)<br>
+
+<br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> Think of terraform.tfstate as Terraform’s memory — without it, it has no idea what it built.<br><br>Title: Reusability with Variables<br>
+Hardcoding values is fine — until you need to scale, reuse, or collaborate. Terraform lets you make your configurations flexible and dynamic using variables and outputs.<br><br>Variables let you parameterize your infrastructure configs.<br>variable "file_content" {
+  default = "Hello Team!"
+}
+<br>
+<br>Can be reused across multiple resources<br>
+
+<br>Support types: string, number, bool, list, map, and more<br>
+
+<br>Defined in variables.tf, values passed via:
+
+<br>terraform.tfvars<br>
+
+<br>-var CLI flags<br>
+
+<br>Environment variables
+
+
+<br><br>Outputs let you expose useful info from your infrastructure — like IP addresses, bucket URLs, or filenames.<br>output "file_path" {
+  value = local_file.hello_file.filename
+}
+<br>
+<br>Displayed after terraform apply<br>
+
+<br>Can be referenced by other modules or used in automation scripts
+<br><img class="emoji" draggable="false" alt="🎯" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f3af.svg" height="16px" style="max-width: 100%;"> Pro Tip: Create a terraform.tfvars file to override default values cleanly:<br>file_content = "Hello from the team!"
+<br><img class="emoji" draggable="false" alt="🧠" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9e0.svg" height="16px" style="max-width: 100%;"> Variables make your code flexible. Outputs make it visible.<br><br>Title: Terraform Best Practices<br><img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Always use terraform plan before apply<br>
+<img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Store state securely (remote backend for real infra)<br>
+<img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Use variables for anything configurable<br>
+<img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Group logic into modules for reusability<br>
+<img class="emoji" draggable="false" alt="✅" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" height="16px" style="max-width: 100%;"> Keep secrets out of .tf files<br><br>Title: In Just One Hour You Learned:<br>
+<br>What is IaC &amp; Terraform?
+<br>Terraform syntax &amp; architecture
+<br>How to write a working .tf config
+<br>Terraform lifecycle &amp; state
+<br>Variables and outputs
+<br><img class="emoji" draggable="false" alt="👏" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f44f.svg" height="16px" style="max-width: 100%;"> You’ve now deployed infrastructure as code!]]></description><link>Tutorial_IaC.html</link><guid isPermaLink="false">Tutorial_IaC.md</guid><dc:creator><![CDATA[Nemish Kanwar]]></dc:creator><pubDate>Wed, 16 Jul 2025 17:22:16 GMT</pubDate><enclosure url="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg" length="0" type="image/svg+xml"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2705.svg&quot;&gt;&lt;/figure&gt;</content:encoded></item></channel></rss>
