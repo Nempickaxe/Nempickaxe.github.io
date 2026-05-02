@@ -4,15 +4,263 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Complement and Substitute Relationships</title>
-    <link rel="stylesheet" href="css/styles.css" />
     <script
       type="text/javascript"
       id="MathJax-script"
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
     ></script>
+    <style>
+      /* ── Base ── */
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        font-family: "Georgia", "Times New Roman", serif;
+        line-height: 1.8;
+        margin: 0;
+        padding: 0;
+        color: #2c2c2c;
+        background-color: #f4f6f9;
+      }
+
+      /* ── Header ── */
+      .header {
+        background: linear-gradient(135deg, #003366 0%, #007acc 100%);
+        color: #fff;
+        padding: 32px 60px;
+        text-align: center;
+      }
+      .header h1 {
+        font-size: 2.2em;
+        margin: 0 0 10px 0;
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+      .header .subtitle {
+        font-size: 1em;
+        color: #cce4ff;
+        font-style: italic;
+      }
+      .header .subtitle a {
+        color: #a8d4ff;
+        text-decoration: underline;
+      }
+
+      /* ── Layout ── */
+      .page-wrapper {
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 0 24px 60px;
+      }
+
+      /* ── Table of Contents ── */
+      .toc {
+        background: #fff;
+        border: 1px solid #d0e4f5;
+        border-left: 5px solid #007acc;
+        border-radius: 6px;
+        padding: 24px 32px;
+        margin-bottom: 48px;
+      }
+      .toc h2 {
+        margin-top: 0;
+        font-size: 1.3em;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .toc ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .toc li {
+        margin: 6px 0;
+      }
+      .toc a {
+        color: #007acc;
+        text-decoration: none;
+        font-size: 0.97em;
+      }
+      .toc a:hover { text-decoration: underline; }
+
+      /* ── Sections ── */
+      section {
+        background: #fff;
+        border-radius: 8px;
+        padding: 36px 44px;
+        margin-bottom: 36px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      }
+
+      /* ── Headings ── */
+      h1 { font-size: 2em;   color: #003366; margin: 0 0 16px; font-weight: bold; }
+      h2 { font-size: 1.6em; color: #00509e; margin: 28px 0 12px; font-weight: bold; }
+      h3 { font-size: 1.35em;color: #007acc; margin: 24px 0 10px; font-weight: bold; }
+      h4 { font-size: 1.15em;color: #0088cc; margin: 20px 0 8px;  font-weight: bold; }
+      h5 { font-size: 1.05em;color: #009fcc; margin: 16px 0 6px;  font-weight: bold; }
+
+      /* ── Paragraphs & Lists ── */
+      p  { margin: 12px 0; text-align: justify; }
+      ul, ol { margin: 12px 0; padding-left: 24px; }
+      li { margin: 6px 0; }
+
+      /* ── Inline code ── */
+      code {
+        background: #eef4fb;
+        border: 1px solid #c8dff0;
+        border-radius: 3px;
+        padding: 1px 5px;
+        font-family: "Courier New", monospace;
+        font-size: 0.92em;
+        color: #003366;
+      }
+
+      /* ── Callout boxes ── */
+      .callout {
+        border-radius: 6px;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-size: 0.97em;
+        line-height: 1.7;
+      }
+      .callout-insight {
+        background: #fffbe6;
+        border-left: 5px solid #f0a500;
+        color: #5a3e00;
+      }
+      .callout-definition {
+        background: #eef7ff;
+        border-left: 5px solid #007acc;
+        color: #003366;
+      }
+      .callout-warning {
+        background: #fff3f3;
+        border-left: 5px solid #cc3300;
+        color: #5a1000;
+      }
+      .callout-result {
+        background: #efffef;
+        border-left: 5px solid #2a9d2a;
+        color: #0a3a0a;
+      }
+      .callout strong { display: block; margin-bottom: 4px; font-size: 1em; }
+
+      /* ── Math display blocks ── */
+      .math-block {
+        background: #f0f8ff;
+        border: 1px solid #b8d8f0;
+        border-radius: 6px;
+        padding: 16px 24px;
+        margin: 18px auto;
+        text-align: center;
+        overflow-x: auto;
+      }
+      .math-block.highlight {
+        border: 2px solid #007acc;
+        background: #e6f3ff;
+      }
+
+      /* ── Step pipeline ── */
+      .pipeline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 20px 0;
+        align-items: stretch;
+      }
+      .pipeline-step {
+        flex: 1 1 180px;
+        background: #eef7ff;
+        border: 1px solid #b0d4f0;
+        border-radius: 8px;
+        padding: 14px 16px;
+        text-align: center;
+        font-size: 0.92em;
+        position: relative;
+      }
+      .pipeline-step .step-num {
+        display: inline-block;
+        background: #007acc;
+        color: #fff;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+      }
+      .pipeline-step strong { display: block; color: #003366; margin-bottom: 4px; }
+      .pipeline-arrow {
+        display: flex;
+        align-items: center;
+        font-size: 1.6em;
+        color: #007acc;
+        padding-top: 4px;
+      }
+
+      /* ── Comparison table ── */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 0.95em;
+      }
+      th {
+        background: #003366;
+        color: #fff;
+        padding: 10px 14px;
+        text-align: left;
+        font-weight: bold;
+      }
+      td {
+        border: 1px solid #d0e4f5;
+        padding: 10px 14px;
+        vertical-align: top;
+      }
+      tr:nth-child(even) td { background: #f4f9ff; }
+
+      /* ── Figure ── */
+      figure {
+        text-align: center;
+        margin: 24px 0;
+      }
+      figure img {
+        max-width: 100%;
+        border-radius: 6px;
+        border: 1px solid #d0e4f5;
+      }
+      figcaption {
+        font-size: 0.88em;
+        color: #555;
+        margin-top: 8px;
+        font-style: italic;
+      }
+
+      /* ── Divider ── */
+      hr {
+        border: none;
+        border-top: 1px solid #d0e4f5;
+        margin: 32px 0;
+      }
+
+      /* ── Footer ── */
+      footer {
+        text-align: center;
+        font-size: 0.85em;
+        color: #888;
+        margin-top: 48px;
+        padding-top: 20px;
+        border-top: 1px solid #d0e4f5;
+      }
+      footer a { color: #007acc; }
+    </style>
   </head>
+
   <body>
+
+    <!-- ═══════════════════════════════════════════════════════ HEADER -->
     <header class="header">
         <a href="../index.html" class="home-button" target="_self"><img src="images/home.png" alt="Home"></a>
         <div class="spacer"><h1>Understanding Complement and Substitute Dynamics: A Rewrite of Existing Research</h1></div>
@@ -20,558 +268,922 @@
           <img src="images/nemish_bg.png" alt="Author's Photo" class="author-photo" />
       </a>
     </header>
-      
-    <p>
-        I aim to bridge the gap between theoretical research and practical application by exploring and rewriting the content of the paper, 
-        <a 
-          href="https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-021-00297-4" 
-          target="_blank"
-        >
-          <em>Extracting Complements and Substitutes from Sales Data</em>
-        </a>. 
-        My goal is to simplify and adapt the methodologies presented in this research to make them more accessible and directly applicable for applied data scientists in real-world scenarios. I extend my sincere gratitude to the authors for their valuable contributions, which have laid the foundation for this effort.
-      </p>
 
-    <section id="usefulness">
-      <h1>Why This Could Be Useful</h1>
-      <p>
-        Identifying and quantifying complementary and substitute relationships
-        between products has significant practical applications in the retail
-        sector. By leveraging a network-based approach from sales transaction
-        data, retailers can gain valuable insights to optimize their business
-        operations. Here are some key benefits:
-      </p>
+    <div class="page-wrapper">
 
-      <ul>
-        <li>
-          <strong>Strategic Product Placement and Shelf Arrangement:</strong>
-          Understanding frequently purchased complementary items allows
-          retailers to place these products together in stores or online
-          catalogs, encouraging additional purchases. For example, positioning
-          salad tomatoes and cucumbers nearby can lead to higher sales of both.
-        </li>
-        <li>
-          <strong>Effective Cross-Selling and Product Bundling:</strong>
-          Retailers can create attractive bundles or targeted cross-selling
-          strategies by leveraging complementary relationships. For instance,
-          offering discounts on bundles like hot dogs and hot dog buns can boost
-          overall sales.
-        </li>
-        <li>
-          <strong>Informed Inventory Management:</strong> Identifying
-          substitutable products helps optimize inventory levels by avoiding
-          overstocking and ensuring alternatives are available, reducing costs
-          and minimizing stockouts.
-        </li>
-        <li>
-          <strong>Targeted Promotions and Marketing Campaigns:</strong> Insights
-          into product relationships enable effective promotions, such as
-          discounts on complementary items or promotions for substitutes when
-          certain products are out of stock.
-        </li>
-        <li>
-          <strong>Personalized Recommendations:</strong> E-commerce platforms
-          can enhance customer experiences with recommendation engines that
-          suggest complementary products based on a user’s cart or purchase
-          history.
-        </li>
-        <li>
-          <strong>Market Basket Analysis and Customer Behavior:</strong> The
-          network-based approach provides valuable tools for analyzing purchase
-          patterns, leading to better decision-making in multiple business
-          areas.
-        </li>
-        <li>
-          <strong>Product Assortment Optimization:</strong> Retailers can refine
-          product offerings by understanding complementary and substitute
-          relationships, improving profitability and customer satisfaction.
-        </li>
-        <li>
-          <strong>Adapting to Changing Trends and Customer Preferences:</strong>
-          Temporal analysis of product relationships reveals shifts in trends,
-          helping retailers stay proactive and relevant.
-        </li>
-      </ul>
-
-      <p>Additional potential applications include:</p>
-
-      <ul>
-        <li>
-          <strong>Competitive Analysis:</strong> Understanding competitors'
-          product pairings can inform a retailer’s bundling strategies and
-          improve market positioning.
-        </li>
-        <li>
-          <strong>Pricing Strategies:</strong> Insights into product
-          relationships can guide pricing decisions to maximize profitability,
-          such as adjusting prices of high-demand complementary items.
-        </li>
-      </ul>
-    </section>
-
-    <section id="approach">
-      <h1>Approach of this Paper</h1>
-      <p>
-        Understanding product transaction relationships in the form of bipartite
-        networks.
-      </p>
-
-      <figure>
-        <img
-          src="images/network_diagram.png"
-          alt="Bipartite Network Illustration"
-        />
-        <figcaption>
-          Representation of a bipartite network using transactions and products.
-        </figcaption>
-      </figure>
-
-      <p>
-        Using the biadjacency matrix \(A^{(b)} =(A_{li}) ∈\{0, 1\}^{n_t×n_p} \)
-        to represent the product-purchase network, where \( n_t \) is the number
-        of transaction nodes, \( n_p \) is the number of product nodes, and \(
-        A_{li} =1\) if product \(i\) is purchased in transaction \(l\) and 0
-        otherwise.
-      </p>
-
-      <ul>
-        <li>n<sub>t</sub> is the number of transaction nodes</li>
-        <li>n<sub>p</sub> is the number of product nodes</li>
-        <li>
-          A<sub>li</sub> = 1 if product i is purchased in transaction l, and 0
-          otherwise
-        </li>
-      </ul>
-
-      <h2>Assumptions</h2>
-      <ol>
-        <li>
-          Complements are products that appear in the same transactions
-          significantly more frequently than expected.
-        </li>
-        <li>
-          The degree of complementarity between complements is positively
-          correlated with how frequently they co-occur in transactions.
-        </li>
-        <li>
-          Substitutes are products that share the same complements but appear in
-          the same transactions significantly less frequently.
-        </li>
-        <li>
-          The degree of substitutability between substitutes is positively
-          correlated with how similar their complements are.
-        </li>
-      </ol>
-    </section>
-
-    <h2>Null Model Approach</h2>
-    <p>
-      This section explains how to create two simple networks to identify 
-      complementary and substitute relationships between products. These networks are built from sales data and represent how products are purchased together.
-    </p>
-    <ul>
-      <li>
-        First, we create a network called a bipartite product-purchase network. 
-        Here, two types of nodes are used: 
-        <strong>transactions</strong> (representing individual purchases) 
-        and <strong>products</strong> (items bought in those transactions).
-      </li>
-      <li>
-        In this network, a line (or edge) connects a transaction node to a product node 
-        if that product was included in the transaction. From this, we analyze how products 
-        are linked through shared transactions to identify their relationships.
-      </li>
-    </ul>
-    
-    <h3>How We Identify Important Relationships</h3>
-    <p>
-      To find meaningful connections between products, the idea of 
-      <strong>common neighbors</strong> is introduced. This means looking at how often two products appear in the same transaction.
-    </p>
-    <ul>
-      <li>
-        If two products are bought together in the same transaction, they share 
-        a <strong>common neighbor</strong>.
-      </li>
-      <li>
-        To determine if this shared connection is significant, we use 
-        <strong>null models</strong>. These models help us compare the observed connections to what we would expect by chance.
-      </li>
-      <li>
-        If two products are bought together much more often than expected, 
-        they are likely <strong>complements</strong>. If they are bought together less often than expected, they are likely <strong>substitutes</strong>.
-      </li>
-    </ul>
-    <p>To do this, two specific null models are proposed:</p>
-
-    <h4><strong>Variant of Bipartite Erdős–Rényi (ER) Models</strong></h4>
-    <p>
-      This model provides a simple way to estimate relationships between products 
-      by assigning each product a unique probability of being connected to a transaction. 
-      This probability is called \( p_i \) for product \( i \).
-    </p>
-    <p>
-      If we want to calculate the chance that two products, \( i \) and \( j \), 
-      are connected to the same transaction, we multiply their individual probabilities:
-    </p>
-    <p>\( p_i p_j \)</p>
-    
-    <h5>Counting Shared Transactions</h5>
-    <p>
-      The number of transactions that involve both products \( i \) and \( j \) 
-      is called \( c_{nij} \). In this model, it behaves like a random variable, \( X_{ij} \), 
-      that follows a binomial distribution:
-    </p>
-    <p>\[ X_{ij} \sim \text{Binomial}(n_t, p_i p_j) \]</p>
-    <p>Here:</p>
-    <ul>
-      <li>\( n_t \): Total number of transactions.</li>
-      <li>\( p_i p_j \): The probability of a transaction containing both products \( i \) and \( j \).</li>
-    </ul>
-    
-    <h5>Making Predictions Easier</h5>
-    <p>
-      For a large number of transactions (\( n_t \)), we can simplify this binomial 
-      distribution using the Central Limit Theorem. The distribution of \( X_{ij} \) 
-      can be approximated by a normal distribution:
-    </p>
-    <p>\( N(\mu_{ij}, \sigma_{ij}^2) \)</p>
-    <p>The parameters of this normal distribution are:</p>
-    <ul>
-      <li>\( \mu_{ij} = n_t p_i p_j \): This is the expected number of shared transactions (mean).</li>
-      <li>\( \sigma_{ij}^2 = n_t p_i p_j (1 - p_i p_j) \): This is the variability (variance).</li>
-    </ul>
-    
-    <h5>Finding Significant Relationships</h5>
-    <p>
-      To decide if two products are significantly more or less connected than expected, 
-      we compare the observed \( c_{nij} \) to the expected mean and variability. 
-      Significance thresholds are set using \( \alpha_m \) (for "more") and \( \alpha_l \) 
-      (for "less"). The rules are:
-    </p>
-    <ul>
-      <li>
-        <strong>Significantly More:</strong> \( c_{nij} \) is higher than expected if:
+      <!-- ═══════════════════════════════════════════════════ INTRO -->
+      <section id="intro">
         <p>
-          \( c_{nij} > n_t p_i p_j + \Phi^{-1}(1 - \alpha_m) \sqrt{n_t p_i p_j (1 - p_i p_j)} \)
+          This article bridges the gap between theoretical research and practical application by
+          exploring and rewriting the methodology of the paper
+          <a href="https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-021-00297-4" target="_blank">
+            <em>Extracting Complements and Substitutes from Sales Data: A Network Perspective</em>
+          </a>
+          (Tian et al., 2021). The goal is to make the math and intuition accessible to applied
+          data scientists, and to show how the ideas translate directly into a large-scale Spark
+          implementation. Sincere gratitude to the authors for their foundational contributions.
         </p>
-      </li>
-      <li>
-        <strong>Significantly Less:</strong> \( c_{nij} \) is lower than expected if:
+
+        <div class="callout callout-definition">
+          <strong>Two core concepts</strong>
+          <strong>Complements</strong> are products that are bought <em>together</em> — hot dogs and hot dog buns,
+          shampoo and conditioner. Demand for one creates demand for the other.<br><br>
+          <strong>Substitutes</strong> are products that can <em>replace</em> each other — Brand A tomatoes and
+          Brand B tomatoes, Pepsi and Coca-Cola. A customer buys one <em>instead of</em> the other.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ TOC -->
+      <nav class="toc">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#usefulness">Why This Is Useful</a></li>
+          <li><a href="#approach">The Network Approach</a></li>
+          <li><a href="#assumptions">Key Assumptions</a></li>
+          <li><a href="#null-models">Null Models — Deciding What Is Significant</a>
+            <ol>
+              <li><a href="#er-model">Bipartite Erdős–Rényi (ER) Model</a></li>
+              <li><a href="#bicm">Bipartite Configuration Model (BiCM)</a></li>
+            </ol>
+          </li>
+          <li><a href="#unipartite">Building the Complement &amp; Substitute Networks</a></li>
+          <li><a href="#simo">Measuring Complementarity — <code>simo</code></a></li>
+          <li><a href="#sims">Measuring Substitutability — <code>sims</code></a></li>
+          <li><a href="#pipeline">End-to-End Pipeline Summary</a></li>
+        </ol>
+      </nav>
+
+      <!-- ═══════════════════════════════════════════════════ WHY USEFUL -->
+      <section id="usefulness">
+        <h1>1 &nbsp; Why This Is Useful</h1>
         <p>
-          \( c_{nij} < n_t p_i p_j - \Phi^{-1}(1 - \alpha_l) \sqrt{n_t p_i p_j (1 - p_i p_j)} \)
+          Knowing which products complement or substitute each other unlocks a wide range of
+          business decisions that would otherwise rely on intuition or expensive field studies.
         </p>
-      </li>
-    </ul>
-    <p>
-      Here, \( \Phi^{-1}(·) \) is the function used to find significance thresholds 
-      from a standard normal distribution.
-    </p>
-    
-    <h5>How Are Probabilities Estimated?</h5>
-    <p>
-      Each product's connection probability (\( p_i \)) is calculated using data. 
-      We estimate \( p_i \) with:
-    </p>
-    <p>\( \hat{p}_i = \frac{d_i^{(p)}}{n_t} \)</p>
-    <p>Where:</p>
-    <ul>
-      <li>\( d_i^{(p)} \): The number of transactions that include product \( i \).</li>
-      <li>\( n_t \): Total number of transactions.</li>
-    </ul>
-    <p>
-      This method ensures that our probabilities reflect real purchase behavior, 
-      making it easier to analyze product relationships.
-    </p>    
 
-    <h4><strong>Bipartite Configuration Models (BiCMs)</strong></h4>
-    <p>
-      The Bipartite Configuration Model (BiCM) is a method for creating random bipartite networks while maintaining specific degree sequences. It improves upon the simpler ER model by considering the variability in transaction node degrees (basket sizes) and product node degrees (popularity).
-    </p>
-    
-    <h5>How BiCM Works</h5>
-    <p>
-      BiCM assigns a predefined number of "stubs" (half-edges) to each node, corresponding to its degree. These stubs are randomly connected to ensure edges form only between transaction and product nodes. Key terms include:
-    </p>
-    <ul>
-      <li><strong>\( d_l^{(0)} \):</strong> Degree of a transaction node \( l \).</li>
-      <li><strong>\( d_i^{(1)} \):</strong> Degree of a product node \( i \).</li>
-      <li><strong>\( m \):</strong> Total edges in the network (sum of all node degrees).</li>
-    </ul>
-    
-    <h5>Edge Formation Probability</h5>
-    <p>
-      For a stub of transaction node \( l \), the probability of connecting to any of the \( d_i^{(1)} \) stubs of product node \( i \) is:
-    </p>
-    <p>
-      \[
-      \frac{d_i^{(1)}}{m}
-      \]
-    </p>
-    <p>
-      With \( d_l^{(0)} \) stubs for transaction node \( l \), the probability of forming an edge is approximately:
-    </p>
-    <p>
-      \[
-      p_{li} = 1 - \underbrace{\left( 1 - \frac{d_i^{(1)}}{m} \right)^{d_l^{(0)}}}_{\text{Probability of no edge}} \approx \frac{d_l^{(0)} d_i^{(1)}}{m}
-      \]
-    </p>
-    
-    <h5>Probability of Common Neighbors</h5>
-    <p>
-      The probability of two product nodes \( i \) and \( j \) sharing a common transaction node \( l \) is given by:
-    </p>
-    <p>
-      \[
-      p_{ilj}^{(1)} = \frac{d_l^{(0)} d_j^{(1)} (d_l^{(0)} - 1) d_i^{(1)}}{m^2}
-      \]
-    </p>
-    <p>
-      The number of common neighbors between product nodes \( i \) and \( j \), denoted \( c_{nij} \), is the sum of probabilities over all transaction nodes:
-    </p>
-    <p>
-      \[
-      c_{nij} = \sum_{l=1}^{n_t} \text{Bernoulli}(p_{ilj})
-      \]
-    </p>
-    <p>
-      This follows a Poisson binomial distribution:
-    </p>
-    <p>
-      \[
-      X_{ij} \sim \text{PoissonBinomial}(p_{i1j}, p_{i2j}, ..., p_{in_tj})
-      \]
-    </p>
-    
-    <h5>Mean of the Distribution</h5>
-    <p>
-      The mean \( \mu_{ij} \) is calculated as:
-    </p>
-    <p style="border: 2px solid #007BFF; background-color: #f0f8ff; padding: 10px; border-radius: 5px; width: 60%; margin: 0 auto; text-align: center;">
-        \[
-        \mu_{ij} = \frac{d_i^{(p)} d_j^{(p)}}{m} \cdot \frac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}
-        \]
-    </p>  
-    <ul>
-      <li>\( d_i^{(p)} \), \( d_j^{(p)} \): Degrees of product nodes \( i \) and \( j \).</li>
-      <li>\( \langle d^{(t)} \rangle \): Average transaction node degree.</li>
-      <li>\( \langle d^{(t)2} \rangle \): Average squared transaction node degree.</li>
-    </ul>
-    <p style="font-size: 1.1em; font-weight: bold; background-color: #fff3cd; border: 2px solid #007BFF; border-left: 4px solid #ffc107; padding: 10px; border-radius: 5px;">
-        This marks a major breakthrough! The right side of the equation, which depends on transactions, is constant for every product pair. As a result, the expected mean is exclusively determined by the product of the product pair degrees, enabling the modeling of the simulation using Spark.
-    </p>    
-    
-    <h5>Poisson Approximation</h5>
-    <p>
-      For sparse networks, the Poisson binomial distribution can be approximated as a Poisson distribution:
-    </p>
-    <p>
-      \[
-      Y_{ij} \sim \text{Poisson}(\mu_{ij})
-      \]
-    </p>
-    
-    <h5>Significance Testing</h5>
-    <p>
-      Use the Poisson cumulative distribution function \( F_{ij}(y) \) to test for significant deviations:
-    </p>
-    <ul>
-      <li><strong>Significantly more:</strong> \( 1 - F_{ij}(c_{nij}) < \alpha_m \)</li>
-      <li><strong>Significantly less:</strong> \( F_{ij}(c_{nij}) < \alpha_l \)</li>
-    </ul>
-    <p>
-      Here, \( \alpha_m \) and \( \alpha_l \) are the significance levels, and \( F_{ij}(y) \) is given by:
-    </p>
-    <p>
-      \[
-      F_{ij}(y) = e^{-\mu_{ij}} \sum_{k=0}^y \frac{\mu_{ij}^k}{k!}
-      \]
-    </p>
-    
-    <p>
-      This model helps identify product pairs with statistically significant transaction patterns, highlighting potential complementary or substitute relationships.
-    </p>    
+        <table>
+          <thead>
+            <tr>
+              <th>Application</th>
+              <th>How complement / substitute knowledge helps</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Shelf &amp; aisle placement</strong></td>
+              <td>Place complements near each other to trigger additional purchases.</td>
+              <td>Salad tomatoes next to cucumbers → both sell more.</td>
+            </tr>
+            <tr>
+              <td><strong>Product bundling</strong></td>
+              <td>Bundle strong complements at a slight discount to increase basket size.</td>
+              <td>Hot dogs + hot dog buns bundle deal.</td>
+            </tr>
+            <tr>
+              <td><strong>Inventory management</strong></td>
+              <td>When a product is out of stock, surface its substitutes automatically.</td>
+              <td>Brand A pasta out of stock → recommend Brand B pasta.</td>
+            </tr>
+            <tr>
+              <td><strong>Targeted promotions</strong></td>
+              <td>Discount a complement to drive sales of a high-margin partner product.</td>
+              <td>Discount coffee filters to boost premium coffee sales.</td>
+            </tr>
+            <tr>
+              <td><strong>Personalised recommendations</strong></td>
+              <td>"Customers also bought…" powered by complement scores.</td>
+              <td>Add pasta to cart → suggest pasta sauce and parmesan.</td>
+            </tr>
+            <tr>
+              <td><strong>Assortment optimisation</strong></td>
+              <td>Identify redundant substitutes and rationalise the product range.</td>
+              <td>Five near-identical own-brand cereals → keep the top two.</td>
+            </tr>
+            <tr>
+              <td><strong>Pricing strategy</strong></td>
+              <td>Raise the price of a substitute only when its pair is on promotion.</td>
+              <td>Raise Brand B price when Brand A is on sale.</td>
+            </tr>
+            <tr>
+              <td><strong>Trend detection</strong></td>
+              <td>Track how complement/substitute relationships shift over time.</td>
+              <td>Oat milk becoming a substitute for dairy milk over 12 months.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <h3>Constructing Unipartite Networks</h3>
-    <p>
-      This section discusses the construction of two unweighted unipartite networks based on significance tests applied to the number of common neighbors. Each network represents a specific type of product relationship.
-    </p>
-    
-    <ol>
-      <li>
-        <strong>Network \(A^{(m)}\):</strong> 
-        This network is represented by the adjacency matrix \(A^{(m)}\) and captures products that are bought together significantly <strong>more</strong> frequently than expected. 
-        An element \(A_{ij}^{(m)}\) equals 1 if the number of common neighbors between products \(i\) and \(j\) is significantly higher than what the null model predicts, and 0 otherwise.
-      </li>
-      <li>
-        <strong>Network \(A^{(l)}\):</strong> 
-        This network, represented by the adjacency matrix \(A^{(l)}\), identifies products that are purchased together significantly <strong>less</strong> frequently than expected. 
-        An element \(A_{ij}^{(l)}\) equals 1 if the number of common neighbors between products \(i\) and \(j\) is significantly lower than the null model prediction, and 0 otherwise.
-      </li>
-    </ol>
-    
-    <p>
-      Based on these networks and assumptions about complementary and substitute relationships, two additional networks are constructed:
-    </p>
-    
-    <ol>
-      <li>
-        <strong>Complementary Network \(A^{(c)}\):</strong> 
-        This network is represented by \(A^{(c)}\) and indicates complementary product pairs. 
-        An element \(A_{ij}^{(c)}\) is 1 if products \(i\) and \(j\) are complements, meaning they have significantly more common neighbors. 
-        Essentially, this network is the same as \(A^{(m)}\): \(A^{(c)} = A^{(m)}\).
-      </li>
-      <li>
-        <strong>Substitute Network \(A^{(s)}\):</strong> 
-        This network, represented by the adjacency matrix \(A^{(s)}\), signifies substitute relationships. 
-        An element \(A_{ij}^{(s)}\) is 1 if products \(i\) and \(j\) are substitutes. 
-        This network is derived from both \(A^{(m)}\) and \(A^{(l)}\).
-      </li>
-    </ol>
-    
-    <p>Specifically, the relationship between these networks is defined as follows:</p>
-    <p>
-      \[
-      A^{(s)} = I_{\{(A^{(m)})^T A^{(m)} > 0\}} \odot A^{(l)}
-      \]
-    </p>
-    <p>
-      In this equation, products are classified as substitutes only if they share at least one common complement (indicated by \((A^{(m)})^T A^{(m)} > 0\)) and are purchased together significantly less often (indicated by \(A^{(l)}\)).
-    </p>
-    
-    <p>
-      The indicator matrix \(I_{\{(A^{(m)})^T A^{(m)} > 0\}}\) plays a crucial role by filtering out product pairs that don't meet the shared complement criteria.
-    </p>
-    
-    <p>
-      These unipartite networks simplify the representation of complex purchasing patterns, making it easier to identify and analyze product relationships within a large dataset.
-    </p>
-    
-    <h3>Discounting Larger Baskets in Complementarity Calculation</h3>
-    <p>
-      The authors propose a method to identify and quantify the strength of complementary relationships between products using sales data. The key idea is to analyze how frequently products are purchased together while considering the size of the shopping baskets.
-    </p>
-    
-    <p>
-      To address the issue of larger baskets potentially skewing the analysis, the authors incorporate a discounting factor based on transaction size. The formula for calculating the complementarity score, denoted as \(simo(i, j)\), is given by:
-    </p>
-    
-    <p>
-      \[
-      simo(i, j) = \frac{\sum_{l=1}^{n_t} \frac{A_{li}A_{lj}}{d(t)_l}}{\sqrt{\left( \sum_{h=1}^{n_t} \frac{A_{hi}}{d(t)_h}\right) \left( \sum_{h=1}^{n_t} \frac{A_{hj}}{d(t)_h}\right)}}
-      \]
-    </p>
-    
-    <p>In this formula:</p>
-    <ul>
-      <li>\(n_t\) is the total number of transactions.</li>
-      <li>
-        \(A_{li}\) is an element from the biadjacency matrix \(A^{(b)}\) of the product-purchase network. It equals 1 if product \(i\) was bought in transaction \(l\), and 0 otherwise.
-      </li>
-      <li>
-        \(d(t)_l\) indicates the degree of transaction node \(l\), which represents the number of products purchased in that transaction.
-      </li>
-    </ul>
-    
-    <p>
-      <strong>The critical aspect is the term</strong> \(\frac{1}{d(t)_l}\) <strong>within the summation.</strong> 
-      This term serves as a discounting factor, diminishing the contribution of transactions with a larger number of products (larger baskets). 
-      If two products co-occur in a basket with many other items, their co-purchase may be coincidental. 
-      By dividing by the transaction degree, the formula downweights the significance of these larger baskets. 
-      Conversely, co-purchases in smaller baskets, where \(d(t)_l\) is smaller, receive a higher weight, as they are more likely to represent genuine complementarity.
-    </p>
-    
-    <h3>From Significance Matrix A to Weighted Matrix W</h3>
-    <p>
-      The transition from the significance matrix \(A\) to the weighted matrix \(W\) involves two key steps:
-    </p>
-    
-    <ol>
-      <li>
-        <strong>Identifying Significant Relationships:</strong> 
-        The authors utilize null models to determine statistically significant relationships, either complementary or substitutable, between products. 
-        This results in unweighted unipartite networks represented by matrices \(A^{(m)}\) and \(A^{(l)}\). 
-        These matrices indicate the presence of significant relationships but do not quantify their strength.
-      </li>
-      <li>
-        <strong>Quantifying Relationship Strength:</strong> 
-        The authors calculate the strength or degree of these relationships using the formulas \(simo\) (for complementarity) and \(sims\) (for substitutability). 
-        This step converts the unweighted matrices \(A^{(c)}\) (for complementarity) and \(A^{(s)}\) (for substitutability) into weighted matrices \(W^{(c)}\) and \(W^{(s)}\), respectively.
-      </li>
-    </ol>
-    
-    <p>
-      The weighted adjacency matrix of the complement unipartite network, \(W^{(c)}\), is derived as follows:
-    </p>
-    
-    <p>
-      \[
-      W^{(c)} = A^{(c)} \odot simo(i,j)
-      \]
-    </p>
-    
-    <p>where:</p>
-    <ul>
-      <li>
-        \(\odot\) denotes the element-wise (Hadamard) product of matrices.
-      </li>
-    </ul>
-    
-    <p>
-      <strong>In essence, the significant relationship matrix</strong> \(A^{(c)}\) <strong>acts as a filter.</strong> 
-      The complementarity score, calculated using \(simo\), is only assigned to product pairs that have been identified as having a statistically significant complementary relationship according to the null model. 
-      This ensures that the weighted matrix \(W^{(c)}\) reflects both the presence and strength of complementarity between products.
-    </p>
-    
-    <h3>Calculating Substitutability Using <code>sims(i, j)</code></h3>
-<p>
-    The authors introduce a method to quantify how substitutable products are for one another. The main idea is that 
-    <strong>products that share similar patterns of complementarity with other products are likely substitutes</strong>. 
-    For example, if both <strong>Brand A</strong> coffee and <strong>Brand B</strong> coffee are complementary to coffee filters and sugar, they are likely substitutes for each other.
-</p>
+      <!-- ═══════════════════════════════════════════════════ APPROACH -->
+      <section id="approach">
+        <h1>2 &nbsp; The Network Approach</h1>
 
-<p>
-    To measure this, the authors use cosine similarity, which compares vectors of complementarity scores. For each product, a vector is created where each element represents the complementarity score (calculated using <code>simo</code>) between that product and all other products. The formula for the substitutability score, denoted as \(sims(i, j)\), between products \(i\) and \(j\) is:
-</p>
+        <p>
+          Rather than relying on price elasticity data (which requires controlled experiments) or
+          word embeddings (which are hard to interpret), this paper models sales data directly as a
+          <strong>bipartite network</strong> — a graph with two distinct types of nodes.
+        </p>
 
-<p>
-    $$ 
-    sims(i, j) = \frac{\sum_{k=1}^{n_p} W^{(c)}_{ik} W^{(c)}_{jk}}{\sqrt{\left( \sum_{p=1}^{n_p} {W^{(c)}_{ip}}^2 \right) \left( \sum_{p=1}^{n_p} {W^{(c)}_{jp}}^2 \right) }} 
-    $$
-</p>
+        <div class="callout callout-definition">
+          <strong>What is a bipartite network?</strong>
+          A bipartite network has two sets of nodes where edges only connect nodes from
+          <em>different</em> sets — never within the same set. Here:
+          <ul style="margin:8px 0 0 0;">
+            <li><strong>Transaction nodes</strong> — one node per shopping trip / basket.</li>
+            <li><strong>Product nodes</strong> — one node per unique product (TCIN / SKU).</li>
+            <li><strong>Edges</strong> — a transaction node is connected to a product node if that
+              product was purchased in that transaction.</li>
+          </ul>
+        </div>
 
-<p>In this formula:</p>
-<ul>
-    <li>\(n_p\) represents the total number of products.</li>
-    <li>
-        \(W^{(c)}_{ik}\) denotes the complementarity score between product \(i\) and product \(k\), calculated using a measure like <code>simo</code>.
-    </li>
-</ul>
+        <figure>
+          <img src="images/network_diagram.png" alt="Bipartite product-purchase network" />
+          <figcaption>
+            A bipartite product-purchase network. Blue squares = transactions; red circles = products.
+            An edge means "this product was in this basket."
+          </figcaption>
+        </figure>
 
-<p>
-    <strong>This formula calculates the cosine of the angle between the complementarity score vectors of products \(i\) and \(j\).</strong> 
-    A smaller angle (higher cosine similarity) indicates a stronger alignment in their complementarity patterns, suggesting that the two products are more likely substitutes.
-</p>
+        <h2>The Biadjacency Matrix</h2>
+        <p>
+          The entire network is encoded in a single matrix called the
+          <strong>biadjacency matrix</strong> \(A^{(b)}\):
+        </p>
+        <div class="math-block">
+          \[ A^{(b)} = (A_{li}) \;\in\; \{0,1\}^{n_t \times n_p} \]
+        </div>
+        <ul>
+          <li>\(n_t\) — number of transaction nodes (rows).</li>
+          <li>\(n_p\) — number of product nodes (columns).</li>
+          <li>\(A_{li} = 1\) if product \(i\) was purchased in transaction \(l\); otherwise \(0\).</li>
+        </ul>
+        <p>
+          Every row is one basket; every column is one product. A 1 in cell \((l, i)\) means
+          "product \(i\) was in basket \(l\)." This sparse binary matrix is the only input the
+          entire method needs.
+        </p>
 
-<p>
-    Just like how the significance matrix \(A^{(c)}\) was used to filter complementarity scores, the significance matrix \(A^{(s)}\) is used to filter substitutability scores. The weighted adjacency matrix of the substitute unipartite network is calculated as follows:
-</p>
+        <div class="callout callout-insight">
+          <strong>Why a network instead of a table?</strong>
+          A flat co-occurrence count table tells you <em>how often</em> two products appear together,
+          but not whether that frequency is surprising given how popular each product is individually.
+          A network model lets us apply statistical null models to answer: "Is this co-occurrence
+          more (or less) than we would expect by chance?"
+        </div>
+      </section>
 
-<p>
-    $$ W^{(s)} = A^{(s)} \odot sims(i,j) $$
-</p>
+      <!-- ═══════════════════════════════════════════════════ ASSUMPTIONS -->
+      <section id="assumptions">
+        <h1>3 &nbsp; Key Assumptions</h1>
+        <p>
+          The method rests on six assumptions that translate economic intuition into measurable
+          network properties. The first four define what complements and substitutes look like in
+          the data; the last two control for noise.
+        </p>
 
-<p>In this equation:</p>
-<ul>
-    <li>
-        \(\odot\) represents the element-wise (Hadamard) product of matrices.
-    </li>
-</ul>
+        <h2>Assumptions about product relationships</h2>
+        <ol>
+          <li>
+            <strong>Complements co-occur more than expected.</strong>
+            If two products are genuine complements, they will appear in the same basket
+            significantly more often than a random model would predict — even after accounting
+            for how popular each product is on its own.
+          </li>
+          <li>
+            <strong>Stronger complements co-occur more frequently.</strong>
+            The degree of complementarity is positively correlated with the relative frequency
+            of co-purchase. Hot dogs and hot dog buns (bought together almost every time) are
+            stronger complements than, say, milk and bread.
+          </li>
+          <li>
+            <strong>Substitutes share the same complements but rarely co-occur.</strong>
+            Brand A tomatoes and Brand B tomatoes are both complements of cucumber and lettuce,
+            but customers rarely buy both brands in the same basket — they pick one.
+          </li>
+          <li>
+            <strong>Stronger substitutes have more similar complement profiles.</strong>
+            The more alike two products' sets of complements are, the more interchangeable
+            those products are. This is the key insight that lets us measure substitutability
+            without any price data.
+          </li>
+        </ol>
 
-<p>
-    <strong>This process ensures that substitutability scores are only calculated for product pairs that show a statistically significant substitute relationship according to the null model, as indicated by \(A^{(s)}\).</strong> 
-    The resulting matrix, \(W^{(s)}\), provides a quantitative measure of the strength of the substitutable relationships between products.
-</p>
+        <h2>Assumptions about noise</h2>
+        <ol start="5">
+          <li>
+            <strong>Noise does not change the community structure.</strong>
+            Random co-purchases (e.g., two popular products that happen to appear in the same
+            large basket) may create spurious local connections, but they will not distort the
+            overall groups (communities) of complements and substitutes. This justifies using
+            community detection as a validation step.
+          </li>
+          <li>
+            <strong>Noise can be modelled and removed.</strong>
+            The null models described in the next section capture the expected co-occurrence
+            due to popularity and basket-size effects alone. Any co-occurrence beyond what the
+            null model predicts is treated as a genuine signal.
+          </li>
+        </ol>
 
+        <div class="callout callout-insight">
+          <strong>Why these assumptions matter for the implementation</strong>
+          Assumption 3 is what makes the substitute detection two-stage: first find complements,
+          then find products that share complements but avoid each other. This is exactly the
+          logic in the Spark notebook — <code>pre_supplementary_pairs</code> is filtered to
+          same-department pairs with low co-occurrence, then further filtered to those sharing
+          at least one common complement.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ NULL MODELS -->
+      <section id="null-models">
+        <h1>4 &nbsp; Null Models — Deciding What Is Significant</h1>
+
+        <p>
+          A <strong>null model</strong> is a randomised version of the network that preserves
+          certain structural properties (like how popular each product is) but removes any
+          genuine product relationships. By comparing the real network to the null model, we
+          can identify co-occurrences that are statistically surprising.
+        </p>
+
+        <div class="callout callout-definition">
+          <strong>The key quantity: common neighbours \(cn_{ij}\)</strong>
+          For any two products \(i\) and \(j\), their <em>common neighbours</em> \(cn_{ij}\)
+          is simply the number of transactions in which both products appear together:
+          \[ cn_{ij} = \sum_{l=1}^{n_t} A_{li} \cdot A_{lj} \]
+          If \(cn_{ij}\) is much higher than the null model predicts → likely <strong>complements</strong>.<br>
+          If \(cn_{ij}\) is much lower than the null model predicts → likely <strong>substitutes</strong>.
+        </div>
+
+        <p>Two null models are proposed, in increasing order of sophistication:</p>
+
+        <!-- ─── ER MODEL ─── -->
+        <h2 id="er-model">4.1 &nbsp; Bipartite Erdős–Rényi (ER) Model</h2>
+
+        <p>
+          The ER model is the simpler of the two. It asks: "If each product independently
+          appeared in each transaction with some fixed probability, how many shared transactions
+          would we expect for a pair of products?"
+        </p>
+
+        <h3>Core idea</h3>
+        <p>
+          Each product \(i\) is assigned a probability \(p_i\) of appearing in any given
+          transaction. This probability is estimated directly from the data:
+        </p>
+        <div class="math-block">
+          \[ \hat{p}_i = \frac{d_i^{(p)}}{n_t} \]
+        </div>
+        <ul>
+          <li>\(d_i^{(p)}\) — the number of transactions that include product \(i\) (its "degree").</li>
+          <li>\(n_t\) — total number of transactions.</li>
+        </ul>
+        <p>
+          Intuitively: if a product appears in 10% of all baskets, its probability is 0.10.
+          A very popular product (milk) has a high \(p_i\); a niche product has a low \(p_i\).
+        </p>
+
+        <h3>Expected co-occurrence</h3>
+        <p>
+          Under this model, the probability that a single transaction contains <em>both</em>
+          products \(i\) and \(j\) is simply \(p_i \cdot p_j\) (since they appear independently).
+          The number of shared transactions \(cn_{ij}\) therefore follows a
+          <strong>Binomial distribution</strong>:
+        </p>
+        <div class="math-block">
+          \[ X_{ij} \;\sim\; \text{Binomial}(n_t,\; p_i p_j) \]
+        </div>
+        <p>
+          For large \(n_t\), the Central Limit Theorem lets us approximate this with a
+          Normal distribution:
+        </p>
+        <div class="math-block">
+          \[
+            \mu_{ij} = n_t p_i p_j
+            \qquad
+            \sigma_{ij}^2 = n_t p_i p_j (1 - p_i p_j)
+          \]
+        </div>
+
+        <h3>Significance thresholds</h3>
+        <p>
+          We declare a co-occurrence <em>significantly more</em> than expected (→ complement
+          candidate) if:
+        </p>
+        <div class="math-block">
+          \[ cn_{ij} \;>\; \mu_{ij} + \Phi^{-1}(1 - \alpha_m)\,\sigma_{ij} \]
+        </div>
+        <p>And <em>significantly less</em> than expected (→ substitute candidate) if:</p>
+        <div class="math-block">
+          \[ cn_{ij} \;<\; \mu_{ij} - \Phi^{-1}(1 - \alpha_l)\,\sigma_{ij} \]
+        </div>
+        <p>
+          Here \(\Phi^{-1}(\cdot)\) is the inverse CDF of the standard Normal distribution,
+          \(\alpha_m\) is the significance level for "more" (e.g., 0.01), and \(\alpha_l\) is
+          the significance level for "less" (e.g., 0.20).
+        </p>
+
+        <div class="callout callout-warning">
+          <strong>Limitation of the ER model</strong>
+          The ER model assumes every transaction has the same size. In reality, some customers
+          buy 2 items and others buy 30. A large basket inflates \(cn_{ij}\) for all pairs of
+          products in it, even if those products have nothing to do with each other. The BiCM
+          below fixes this.
+        </div>
+
+        <!-- ─── BICM ─── -->
+        <h2 id="bicm">4.2 &nbsp; Bipartite Configuration Model (BiCM)</h2>
+
+        <p>
+          The BiCM is a more realistic null model. It preserves <em>both</em> the degree of
+          each product node (how popular each product is) <em>and</em> the degree of each
+          transaction node (how large each basket is). This means the null model accounts for
+          the fact that a large basket will naturally contain more product pairs.
+        </p>
+
+        <h3>How it works conceptually</h3>
+        <p>
+          Imagine each product node has \(d_i^{(p)}\) "stubs" (half-edges) and each transaction
+          node has \(d_l^{(t)}\) stubs. The BiCM randomly connects these stubs, but only allows
+          edges between transaction nodes and product nodes (never product–product or
+          transaction–transaction). The resulting random network has the same degree sequence
+          as the real data, but no genuine product relationships.
+        </p>
+
+        <h3>Probability of a shared transaction</h3>
+        <p>
+          Under the BiCM, the probability that products \(i\) and \(j\) both appear in
+          transaction \(l\) is:
+        </p>
+        <div class="math-block">
+          \[
+            p_{ilj} = \frac{d_i^{(p)} \cdot d_l^{(t)} \cdot d_j^{(p)} \cdot (d_l^{(t)} - 1)}{m^2}
+          \]
+        </div>
+        <ul>
+          <li>\(d_i^{(p)}\), \(d_j^{(p)}\) — degrees of product nodes \(i\) and \(j\).</li>
+          <li>\(d_l^{(t)}\) — degree of transaction node \(l\) (basket size).</li>
+          <li>\(m = \sum_l d_l^{(t)} = \sum_i d_i^{(p)}\) — total number of edges (total items sold across all transactions).</li>
+        </ul>
+        <p>
+          Notice that \(p_{ilj}\) varies per transaction: a large basket (high \(d_l^{(t)}\))
+          contributes more to the expected co-occurrence than a small basket. This is the key
+          improvement over the ER model.
+        </p>
+
+        <h3>Expected co-occurrence \(\mu_{ij}\) — the key formula</h3>
+        <p>
+          Summing \(p_{ilj}\) over all transactions gives the expected number of shared
+          transactions:
+        </p>
+        <div class="math-block highlight">
+          \[
+            \mu_{ij}
+            = \sum_{l=1}^{n_t} p_{ilj}
+            = \frac{d_i^{(p)} \cdot d_j^{(p)}}{m}
+              \cdot
+              \frac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}
+          \]
+        </div>
+        <ul>
+          <li>\(\langle d^{(t)} \rangle = \frac{1}{n_t}\sum_l d_l^{(t)}\) — mean basket size.</li>
+          <li>\(\langle d^{(t)2} \rangle = \frac{1}{n_t}\sum_l (d_l^{(t)})^2\) — mean squared basket size.</li>
+        </ul>
+
+        <div class="callout callout-insight">
+          <strong>Why this formula is a computational breakthrough</strong>
+          Look at the right-hand side carefully. It splits into two parts:
+          <ul style="margin:8px 0 0 0;">
+            <li>
+              <strong>Product-pair part:</strong> \(\dfrac{d_i^{(p)} \cdot d_j^{(p)}}{m}\) —
+              depends only on the two products being compared.
+            </li>
+            <li>
+              <strong>Transaction moment part:</strong>
+              \(\dfrac{\langle d^{(t)2} \rangle - \langle d^{(t)} \rangle}{\langle d^{(t)} \rangle}\) —
+              a single scalar constant computed once from all transactions, the same for every product pair.
+            </li>
+          </ul>
+          This means we can compute \(\mu_{ij}\) for <em>billions</em> of product pairs in Spark
+          with a simple join and multiplication — no per-pair loop over transactions needed.
+          In the notebook this constant is called <code>moment_simplified</code>.
+        </div>
+
+        <h3>Poisson approximation</h3>
+        <p>
+          The number of shared transactions \(cn_{ij}\) is a sum of independent Bernoulli
+          variables (one per transaction), each with probability \(p_{ilj}\). This is called a
+          <strong>Poisson binomial distribution</strong>. For sparse networks where each
+          \(p_{ilj}\) is small, Le Cam's theorem guarantees it can be well approximated by a
+          simpler <strong>Poisson distribution</strong>:
+        </p>
+        <div class="math-block">
+          \[ cn_{ij} \;\approx\; Y_{ij} \;\sim\; \text{Poisson}(\mu_{ij}) \]
+        </div>
+        <p>
+          This approximation is valid because real retail networks are sparse — most products
+          appear in only a small fraction of all transactions, so \(p_{ilj}\) is tiny for most
+          pairs.
+        </p>
+
+        <h3>Significance testing with the Poisson CDF</h3>
+        <p>
+          Let \(F_{ij}(y)\) be the cumulative distribution function of \(\text{Poisson}(\mu_{ij})\):
+        </p>
+        <div class="math-block">
+          \[
+            F_{ij}(y) = e^{-\mu_{ij}} \sum_{k=0}^{y} \frac{\mu_{ij}^k}{k!}
+          \]
+        </div>
+        <p>
+          We then apply two one-sided tests:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Test</th>
+              <th>Condition</th>
+              <th>Interpretation</th>
+              <th>Notebook threshold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Significantly more</strong></td>
+              <td>\(1 - F_{ij}(cn_{ij}) < \alpha_m\)</td>
+              <td>Co-occurrence is surprisingly high → complement candidate</td>
+              <td><code>p_value &gt; 0.85</code></td>
+            </tr>
+            <tr>
+              <td><strong>Significantly less</strong></td>
+              <td>\(F_{ij}(cn_{ij}) < \alpha_l\)</td>
+              <td>Co-occurrence is surprisingly low → substitute candidate</td>
+              <td><code>p_value &lt; 0.15</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-warning">
+          <strong>Important: minimum co-occurrence filter</strong>
+          The Poisson CDF test alone is not sufficient at retail scale. A pair that co-occurred
+          just once with an expected mean of 0.01 gets
+          \(F(1, 0.01) \approx 0.9999\), trivially passing the complement threshold. At 837K
+          products and 2B co-occurring pairs, this inflates the complement count to over 1 billion.
+          A minimum co-occurrence filter (e.g., <code>count &ge; 5</code>) must be applied
+          before the significance test to ensure only meaningfully co-occurring pairs are
+          classified as complements.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ UNIPARTITE NETWORKS -->
+      <section id="unipartite">
+        <h1>5 &nbsp; Building the Complement &amp; Substitute Networks</h1>
+
+        <p>
+          The significance tests produce two binary (unweighted) unipartite networks — graphs
+          where every node is a product and edges indicate a statistically significant
+          relationship.
+        </p>
+
+        <h2>Step 1 — Two intermediate networks from the significance tests</h2>
+        <table>
+          <thead>
+            <tr><th>Matrix</th><th>Meaning</th><th>Entry = 1 when…</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(A^{(m)}\)</td>
+              <td>"More" network</td>
+              <td>Products \(i\) and \(j\) co-occur <em>significantly more</em> than expected</td>
+            </tr>
+            <tr>
+              <td>\(A^{(l)}\)</td>
+              <td>"Less" network</td>
+              <td>Products \(i\) and \(j\) co-occur <em>significantly less</em> than expected</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Step 2 — Derive the complement and substitute networks</h2>
+
+        <h3>Complement network \(A^{(c)}\)</h3>
+        <p>
+          By Assumption 1, complements are simply the pairs that co-occur significantly more
+          than expected. So the complement network is identical to \(A^{(m)}\):
+        </p>
+        <div class="math-block">
+          \[ A^{(c)} = A^{(m)} \]
+        </div>
+
+        <h3>Substitute network \(A^{(s)}\)</h3>
+        <p>
+          By Assumption 3, substitutes must satisfy <em>two</em> conditions simultaneously:
+        </p>
+        <ol>
+          <li>They co-occur <em>less</em> than expected — captured by \(A^{(l)}\).</li>
+          <li>They share at least one common complement — captured by checking whether
+            \((A^{(m)})^T A^{(m)}\) has a non-zero entry for that pair.</li>
+        </ol>
+        <p>Both conditions are combined with an element-wise (Hadamard) product:</p>
+        <div class="math-block">
+          \[
+            A^{(s)} = \mathbf{I}_{\{(A^{(m)})^T A^{(m)} > 0\}} \;\odot\; A^{(l)}
+          \]
+        </div>
+        <p>
+          The indicator matrix \(\mathbf{I}_{\{(A^{(m)})^T A^{(m)} > 0\}}\) acts as a gate:
+          it is 1 for a pair \((i,j)\) only if there exists at least one product \(k\) such
+          that both \(i\) and \(j\) are complements of \(k\). Without this gate, any two
+          unpopular products that happen to rarely co-occur would be labelled substitutes —
+          which is clearly wrong.
+        </p>
+
+        <div class="callout callout-definition">
+          <strong>Concrete example</strong>
+          Brand A tomatoes and Brand B tomatoes:
+          <ul style="margin:8px 0 0 0;">
+            <li>Both are complements of cucumber, lettuce, and olive oil → \((A^{(m)})^T A^{(m)} > 0\) ✓</li>
+            <li>Customers rarely buy both brands in the same basket → \(A^{(l)} = 1\) ✓</li>
+            <li>Therefore \(A^{(s)}_{ij} = 1\) → they are substitutes ✓</li>
+          </ul>
+        </div>
+
+        <p>
+          At this stage both networks are <em>unweighted</em> — they only tell us whether a
+          relationship exists, not how strong it is. The next two sections add weights.
+        </p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ SIMO -->
+      <section id="simo">
+        <h1>6 &nbsp; Measuring Complementarity — <code>simo(i, j)</code></h1>
+
+        <p>
+          Knowing that two products are complements is useful, but knowing <em>how strongly</em>
+          complementary they are is even more valuable. The paper proposes a family of measures
+          derived from a weighted cosine similarity on the bipartite network. The simplest and
+          most practical is the <strong>original measure</strong>, <code>simo</code>.
+        </p>
+
+        <h2>Intuition: a random-walk perspective</h2>
+        <p>
+          Imagine placing a unit of "signal" on product \(i\) and letting it flow one step
+          through the bipartite network — from product \(i\) to all transactions containing
+          \(i\), weighted by \(1/d_l^{(t)}\) (the inverse basket size). The resulting
+          distribution over transactions is the "fingerprint" of product \(i\).
+        </p>
+        <p>
+          Two products are strongly complementary if their fingerprints overlap a lot — i.e.,
+          they tend to appear in the same transactions, especially small transactions where the
+          co-occurrence is less likely to be coincidental.
+        </p>
+
+        <h2>The formula</h2>
+        <div class="math-block highlight">
+          \[
+            simo(i, j)
+            = \frac{
+                \displaystyle\sum_{l=1}^{n_t} \frac{A_{li}\, A_{lj}}{d_l^{(t)}}
+              }{
+                \sqrt{
+                  \left(\displaystyle\sum_{h=1}^{n_t} \frac{A_{hi}}{d_h^{(t)}}\right)
+                  \left(\displaystyle\sum_{h=1}^{n_t} \frac{A_{hj}}{d_h^{(t)}}\right)
+                }
+              }
+          \]
+        </div>
+
+        <h2>Breaking it down term by term</h2>
+        <table>
+          <thead>
+            <tr><th>Term</th><th>What it computes</th><th>Why it matters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(A_{li} \cdot A_{lj}\)</td>
+              <td>1 if both products appear in transaction \(l\), else 0</td>
+              <td>Selects only transactions where both products co-occur</td>
+            </tr>
+            <tr>
+              <td>\(\dfrac{1}{d_l^{(t)}}\)</td>
+              <td>Inverse basket size of transaction \(l\)</td>
+              <td>
+                <strong>Discounts large baskets.</strong> If a basket has 50 items, any two
+                products in it are likely there by coincidence. A basket of 2 items is a much
+                stronger signal of genuine complementarity.
+              </td>
+            </tr>
+            <tr>
+              <td>Numerator sum</td>
+              <td>\(\sum_l A_{li} A_{lj} / d_l^{(t)}\)</td>
+              <td>Total "weighted co-occurrence" of products \(i\) and \(j\)</td>
+            </tr>
+            <tr>
+              <td>Denominator \(\sum_h A_{hi}/d_h^{(t)}\)</td>
+              <td>Total weighted occurrence of product \(i\) alone</td>
+              <td>
+                Normalises by how often each product appears individually, so that popular
+                products don't automatically get high scores with everything.
+              </td>
+            </tr>
+            <tr>
+              <td>\(\sqrt{\cdots \times \cdots}\)</td>
+              <td>Geometric mean of the two individual weighted occurrences</td>
+              <td>
+                Makes the score symmetric: \(simo(i,j) = simo(j,i)\), and ensures
+                \(simo(i,i) = 1\) (a product is perfectly complementary to itself).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-result">
+          <strong>Range and interpretation</strong>
+          \(simo(i,j) \in [0, 1]\). A value near 1 means the two products almost always
+          appear together in small, focused baskets — very strong complements. A value near 0
+          means they rarely share transactions, or only share large baskets where the
+          co-occurrence is likely coincidental.
+        </div>
+
+        <h2>From unweighted to weighted complement network</h2>
+        <p>
+          The <code>simo</code> score is computed for all product pairs, but only pairs already
+          identified as complements (i.e., \(A^{(c)}_{ij} = 1\)) are assigned a non-zero weight.
+          This is done via an element-wise product:
+        </p>
+        <div class="math-block">
+          \[ W^{(c)} = A^{(c)} \;\odot\; simo(i,j) \]
+        </div>
+        <p>
+          \(A^{(c)}\) acts as a <strong>mask</strong>: it zeroes out the score for any pair
+          that did not pass the significance test, no matter how high their raw <code>simo</code>
+          value might be. This prevents noise from inflating the complement network.
+        </p>
+
+        <h2>Spark implementation note</h2>
+        <p>
+          In the notebook, the numerator is computed by joining the sales data on
+          <code>transaction_id</code> (to find co-occurring pairs) and summing
+          <code>1/d_t</code> per pair. The denominator is computed by summing
+          <code>1/d_t</code> per product individually, then joining back. The critical fix
+          (Bug 1) was changing <code>F.sum(F.col("tcin_1"))</code> to
+          <code>F.sum(F.col("inverse"))</code> in the denominator — the original code was
+          summing the product ID number instead of the inverse transaction degree.
+        </p>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ SIMS -->
+      <section id="sims">
+        <h1>7 &nbsp; Measuring Substitutability — <code>sims(i, j)</code></h1>
+
+        <p>
+          Once we have the weighted complement network \(W^{(c)}\), we can measure how
+          substitutable two products are. The core idea (Assumption 4) is:
+        </p>
+
+        <div class="callout callout-definition">
+          <strong>Substitutes have similar complement profiles.</strong>
+          Each product \(i\) can be described by a vector of its complementarity scores with
+          every other product: \(\mathbf{w}_i = (W^{(c)}_{i1}, W^{(c)}_{i2}, \ldots, W^{(c)}_{in_p})\).
+          Two products are strong substitutes if their complement vectors point in the same
+          direction — i.e., they are complementary to the same set of products with similar
+          strengths.
+        </div>
+
+        <h2>The formula — cosine similarity over complement vectors</h2>
+        <div class="math-block highlight">
+          \[
+            sims(i, j)
+            = \frac{
+                \displaystyle\sum_{k=1}^{n_p} W^{(c)}_{ik}\, W^{(c)}_{jk}
+              }{
+                \sqrt{
+                  \left(\displaystyle\sum_{p=1}^{n_p} \left(W^{(c)}_{ip}\right)^2\right)
+                  \left(\displaystyle\sum_{p=1}^{n_p} \left(W^{(c)}_{jp}\right)^2\right)
+                }
+              }
+          \]
+        </div>
+
+        <h2>Breaking it down</h2>
+        <table>
+          <thead>
+            <tr><th>Term</th><th>What it computes</th><th>Why it matters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(\sum_k W^{(c)}_{ik} W^{(c)}_{jk}\)</td>
+              <td>Dot product of the two complement vectors</td>
+              <td>
+                Large when both products have high complementarity scores with the same
+                third products \(k\). This is the numerator of cosine similarity.
+              </td>
+            </tr>
+            <tr>
+              <td>\(\sum_p (W^{(c)}_{ip})^2\)</td>
+              <td>Squared norm of product \(i\)'s complement vector</td>
+              <td>
+                Normalises for the overall "strength" of product \(i\)'s complement
+                relationships, so that a product with many strong complements doesn't
+                automatically score high with everything.
+              </td>
+            </tr>
+            <tr>
+              <td>\(\sqrt{\cdots \times \cdots}\)</td>
+              <td>Geometric mean of the two norms</td>
+              <td>Makes the score symmetric and bounded in \([0, 1]\).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-definition">
+          <strong>Concrete example</strong>
+          Brand A tomatoes has high <code>simo</code> scores with: cucumber (0.8), lettuce (0.7),
+          olive oil (0.5).<br>
+          Brand B tomatoes has high <code>simo</code> scores with: cucumber (0.75), lettuce (0.65),
+          olive oil (0.45).<br><br>
+          Their complement vectors are nearly parallel → high cosine similarity → high
+          <code>sims</code> → strong substitutes. ✓
+        </div>
+
+        <h2>Why the θ_c threshold matters before computing sims</h2>
+        <p>
+          The paper (§3.4.2, Appendix B) explicitly warns that low-quality complementarity
+          scores must be removed before computing <code>sims</code>. If near-zero
+          <code>simo</code> values are included, they add noise to the complement vectors and
+          bias the cosine similarity. The paper calibrates a threshold \(\theta_c\) at the
+          0.35 quantile of non-zero <code>simo</code> values (approximately 0.011 in their
+          dataset). In the notebook:
+        </p>
+        <div class="math-block">
+          <code>theta_c = measure_complementary.approxQuantile('simo', [0.35], 0.01)[0]</code><br>
+          <code>measure_complementary = measure_complementary.filter(F.col('simo') &gt;= theta_c)</code>
+        </div>
+
+        <h2>From unweighted to weighted substitute network</h2>
+        <p>
+          Just as with complements, the <code>sims</code> score is masked by the binary
+          substitute network \(A^{(s)}\):
+        </p>
+        <div class="math-block">
+          \[ W^{(s)} = A^{(s)} \;\odot\; sims(i,j) \]
+        </div>
+        <p>
+          Only pairs that passed the significance test (low co-occurrence + shared complement)
+          receive a non-zero substitutability score. The resulting matrix \(W^{(s)}\) is the
+          final output: a weighted network where edge weight = strength of substitutability.
+        </p>
+
+        <div class="callout callout-result">
+          <strong>Range and interpretation</strong>
+          \(sims(i,j) \in [0, 1]\). A value near 1 means the two products have almost
+          identical complement profiles — they are nearly perfect substitutes. A value near 0
+          means their complement profiles are very different, suggesting they serve different
+          purposes despite rarely being bought together.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════ PIPELINE -->
+      <section id="pipeline">
+        <h1>8 &nbsp; End-to-End Pipeline Summary</h1>
+
+        <p>
+          The full method goes from raw transaction data to two weighted product networks in
+          seven steps:
+        </p>
+
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <strong>Build biadjacency matrix</strong>
+            \(A^{(b)}\): transactions × products
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <strong>Compute expected co-occurrence</strong>
+            \(\mu_{ij}\) via BiCM formula using <code>moment_simplified</code>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <strong>Poisson CDF significance test</strong>
+            Filter: <code>count ≥ 5</code>, then classify as complement or substitute candidate
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <strong>Build \(A^{(c)}\) and \(A^{(s)}\)</strong>
+            Substitute network requires shared complement gate
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">5</div>
+            <strong>Compute <code>simo</code></strong>
+            Weighted cosine similarity on bipartite network; apply \(\theta_c\) threshold
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">6</div>
+            <strong>Compute <code>sims</code></strong>
+            Cosine similarity over thresholded complement vectors
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-step">
+            <div class="step-num">7</div>
+            <strong>Output \(W^{(c)}\) and \(W^{(s)}\)</strong>
+            Weighted complement and substitute networks, ready for community detection or ranking
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>Key parameters (from paper Appendix B)</h2>
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>\(\alpha_m\)</td>
+              <td>0.01</td>
+              <td>Significance level for "significantly more" co-occurrence (complement test)</td>
+            </tr>
+            <tr>
+              <td>\(\alpha_l\)</td>
+              <td>0.20</td>
+              <td>Significance level for "significantly less" co-occurrence (substitute test)</td>
+            </tr>
+            <tr>
+              <td>\(\theta_c\)</td>
+              <td>0.35 quantile of non-zero <code>simo</code></td>
+              <td>Threshold below which complementarity scores are zeroed out before computing <code>sims</code></td>
+            </tr>
+            <tr>
+              <td><code>MIN_CO_OCCURRENCE</code></td>
+              <td>5 (practical addition for large-scale data)</td>
+              <td>Minimum observed co-occurrence before applying the Poisson CDF test</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <hr>
+
+        <h2>Bugs found and fixed in the Spark implementation</h2>
+        <table>
+          <thead>
+            <tr><th>Bug</th><th>Symptom</th><th>Root cause</th><th>Fix</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bug 1 (Critical)</strong></td>
+              <td><code>simo</code> ≈ 1e-10, <code>sims</code> ≈ 1e-8</td>
+              <td><code>F.sum(F.col("tcin_1"))</code> summed product IDs instead of <code>1/d_t</code></td>
+              <td>Changed to <code>F.sum(F.col("inverse"))</code></td>
+            </tr>
+            <tr>
+              <td><strong>Bug 2</strong></td>
+              <td>1.1B complementary pairs (too many)</td>
+              <td>Pairs with count=1 and tiny expected mean trivially pass the CDF test</td>
+              <td>Added <code>count ≥ 5</code> filter before significance test</td>
+            </tr>
+            <tr>
+              <td><strong>Bug 2b</strong></td>
+              <td>700K substitute pairs (too few)</td>
+              <td>Zero-cooccurrence pairs (true substitutes) absent from co-occurrence matrix</td>
+              <td>Generate same-department zero-count candidates; compute proper \(p = e^{-\mu}\)</td>
+            </tr>
+            <tr>
+              <td><strong>Bug 3</strong></td>
+              <td>Same pair repeated 10+ times in output</td>
+              <td><code>drop_duplicates</code> called before <code>tcin_3</code> fan-out was resolved</td>
+              <td>Aggregate <code>countDistinct(tcin_3)</code> first, then dedup</td>
+            </tr>
+            <tr>
+              <td><strong>Bug 4</strong></td>
+              <td><code>sims</code> biased by noise</td>
+              <td>No \(\theta_c\) threshold applied before computing <code>sims</code></td>
+              <td>Apply <code>approxQuantile('simo', [0.35])</code> threshold per paper Appendix B</td>
+            </tr>
+            <tr>
+              <td><strong>Bug 5</strong></td>
+              <td>False substitute signals for rare product pairs</td>
+              <td>Zero-count pairs assigned blanket <code>p_value=0</code> regardless of \(\mu\)</td>
+              <td>Compute <code>p_value = exp(-expected_mean)</code> per pair; filter by <code>p_value &lt; 0.15</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer>
+        Based on: Tian, Y., Lautz, S., Wallis, A.O.G. &amp; Lambiotte, R. (2021).
+        <em>Extracting complements and substitutes from sales data: a network perspective.</em>
+        EPJ Data Science, 10, 45.
+        <a href="https://doi.org/10.1140/epjds/s13688-021-00297-4" target="_blank">
+          https://doi.org/10.1140/epjds/s13688-021-00297-4
+        </a>
+      </footer>
+
+    </div><!-- /page-wrapper -->
   </body>
 </html>
