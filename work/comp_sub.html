@@ -53,6 +53,7 @@
         height: 40px;
         display: block;
         object-fit: contain;
+        transition: transform 0.2s ease;
       }
       .header .author-photo {
         width: 52px;
@@ -60,6 +61,11 @@
         border-radius: 50%;
         display: block;
         object-fit: cover;
+        transition: transform 0.2s ease;
+      }
+      .header .home-button:hover img,
+      .header a:hover .author-photo {
+        transform: scale(1.5);
       }
       .header .subtitle {
         font-size: 1em;
