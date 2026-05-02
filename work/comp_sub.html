@@ -28,14 +28,38 @@
         background: linear-gradient(135deg, #003366 0%, #007acc 100%);
         color: #fff;
         padding: 32px 60px;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
       }
       .header h1 {
         font-size: 2.2em;
-        margin: 0 0 10px 0;
+        margin: 0;
         color: #fff;
         font-weight: bold;
         letter-spacing: 0.5px;
+      }
+      .header .spacer {
+        flex: 1;
+        text-align: center;
+      }
+      .header .home-button,
+      .header .author-photo {
+        flex: 0 0 auto;
+      }
+      .header .home-button img {
+        width: 40px;
+        height: 40px;
+        display: block;
+        object-fit: contain;
+      }
+      .header .author-photo {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: block;
+        object-fit: cover;
       }
       .header .subtitle {
         font-size: 1em;
