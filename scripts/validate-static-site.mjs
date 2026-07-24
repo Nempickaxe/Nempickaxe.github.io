@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const errors = [];
 const warnings = [];
-const externalSchemes = /^(https?:|mailto:|tel:|#)/i;
+const externalSchemes = /^(https?:|mailto:|tel:|data:|blob:|javascript:|#)/i;
 
 function fail(message) {
   errors.push(message);
