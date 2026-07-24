@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grounding, RAG, and Prompting</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: "Georgia", "Times New Roman", serif; line-height: 1.8; margin: 0; color: #2c2c2c; background: #f4f6f9; }
+      .header { background: linear-gradient(135deg, #003366 0%, #007acc 100%); color: #fff; padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .header h1 { margin: 0; color: #fff; text-align: center; font-size: 2em; }
+      .home-button img, .author-photo { width: 44px; height: 44px; object-fit: cover; display: block; }
+      .author-photo { border-radius: 50%; }
+      .page-wrapper { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+      section { background: #fff; border-radius: 8px; padding: 36px 44px; margin-bottom: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+      h1 { color: #003366; margin-top: 0; } h2 { color: #00509e; } a { color: #007acc; } code { background: #eef4fb; border: 1px solid #c8dff0; border-radius: 3px; padding: 1px 5px; color: #003366; }
+      table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95em; }
+      th { background: #003366; color: #fff; padding: 10px 14px; text-align: left; } td { border: 1px solid #d0e4f5; padding: 10px 14px; vertical-align: top; }
+      tr:nth-child(even) td { background: #f4f9ff; } .callout { background: #eef7ff; border-left: 5px solid #007acc; color: #003366; padding: 16px 20px; border-radius: 6px; margin: 20px 0; }
+      footer { text-align: center; font-size: 0.85em; color: #888; margin-top: 48px; padding-top: 20px; border-top: 1px solid #d0e4f5; }
+      @media (max-width: 720px) { .header { padding: 24px 20px; } .header h1 { font-size: 1.35em; } section { padding: 26px 22px; } }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../index.html" class="home-button"><img src="../images/home.png" alt="Home" /></a>
+      <h1>Grounding, RAG, and Prompting</h1>
+      <a href="../../index.html"><img src="../images/nemish_bg.png" alt="Author's Photo" class="author-photo" /></a>
+    </header>
+    <div class="page-wrapper">
+      <section>
+        <h1>What to Read</h1>
+        <p>
+          Grounding means connecting an AI answer to specific, verifiable sources. RAG is a common
+          implementation pattern: retrieve relevant information, then generate using that context.
+        </p>
+        <div class="callout">
+          Exam shortcut: if the question says "official docs only", "company policy", "latest source",
+          or "reduce hallucination", think grounding or RAG.
+        </div>
+      </section>
+      <section>
+        <h2>Without vs With Grounding</h2>
+        <table>
+          <thead><tr><th>Dimension</th><th>Model only</th><th>Model plus RAG</th></tr></thead>
+          <tbody>
+            <tr><td>Knowledge source</td><td>Training data and prompt context.</td><td>Retrieved docs, databases, search systems, or enterprise sources.</td></tr>
+            <tr><td>Freshness</td><td>Can be stale.</td><td>Can use current retrieved knowledge.</td></tr>
+            <tr><td>Trust</td><td>Harder to verify.</td><td>Can cite or trace source material.</td></tr>
+            <tr><td>Hallucination risk</td><td>Higher when facts are missing.</td><td>Lower when generation is constrained to retrieved context.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Prompting Patterns</h2>
+        <ul>
+          <li><strong>Zero-shot</strong>: ask directly without examples.</li>
+          <li><strong>One-shot</strong>: provide one example before the task.</li>
+          <li><strong>Few-shot</strong>: provide multiple examples to shape style or format.</li>
+          <li><strong>Role prompting</strong>: ask the model to act as a specific expert or persona.</li>
+          <li><strong>Prompt chaining</strong>: split a workflow into smaller prompts where each output feeds the next step.</li>
+          <li><strong>ReAct</strong>: combine reasoning with actions or tool calls.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Practical Use Cases</h2>
+        <table>
+          <thead><tr><th>Need</th><th>Likely pattern</th></tr></thead>
+          <tbody>
+            <tr><td>Answer questions over internal policy documents.</td><td>RAG or NotebookLM-style grounding.</td></tr>
+            <tr><td>Make brand-consistent marketing copy.</td><td>Role prompting plus few-shot examples.</td></tr>
+            <tr><td>Summarize long uploaded PDFs.</td><td>NotebookLM or source-grounded assistant.</td></tr>
+            <tr><td>Debug a multi-step workflow.</td><td>Prompt chaining with clear intermediate outputs.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <footer><a href="index.html">Back to reading index</a> | <a href="../gail.html">Main GAIL blog</a></footer>
+    </div>
+  </body>
+</html>

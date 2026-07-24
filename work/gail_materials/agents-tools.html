@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agents, Tools, and Google Cloud</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: "Georgia", "Times New Roman", serif; line-height: 1.8; margin: 0; color: #2c2c2c; background: #f4f6f9; }
+      .header { background: linear-gradient(135deg, #003366 0%, #007acc 100%); color: #fff; padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .header h1 { margin: 0; color: #fff; text-align: center; font-size: 2em; }
+      .home-button img, .author-photo { width: 44px; height: 44px; object-fit: cover; display: block; }
+      .author-photo { border-radius: 50%; }
+      .page-wrapper { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+      section { background: #fff; border-radius: 8px; padding: 36px 44px; margin-bottom: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+      h1 { color: #003366; margin-top: 0; } h2 { color: #00509e; } a { color: #007acc; }
+      table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95em; }
+      th { background: #003366; color: #fff; padding: 10px 14px; text-align: left; } td { border: 1px solid #d0e4f5; padding: 10px 14px; vertical-align: top; }
+      tr:nth-child(even) td { background: #f4f9ff; } .callout { background: #eef7ff; border-left: 5px solid #007acc; color: #003366; padding: 16px 20px; border-radius: 6px; margin: 20px 0; }
+      footer { text-align: center; font-size: 0.85em; color: #888; margin-top: 48px; padding-top: 20px; border-top: 1px solid #d0e4f5; }
+      @media (max-width: 720px) { .header { padding: 24px 20px; } .header h1 { font-size: 1.35em; } section { padding: 26px 22px; } }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../index.html" class="home-button"><img src="../images/home.png" alt="Home" /></a>
+      <h1>Agents, Tools, and Google Cloud Services</h1>
+      <a href="../../index.html"><img src="../images/nemish_bg.png" alt="Author's Photo" class="author-photo" /></a>
+    </header>
+    <div class="page-wrapper">
+      <section>
+        <h1>What to Read</h1>
+        <p>
+          Agents are not just chatbots. They can observe, interpret, plan, act, and use tools to
+          complete goal-oriented workflows.
+        </p>
+        <div class="callout">
+          Exam shortcut: if the question needs live inventory, a database lookup, custom business logic,
+          or multi-step action, think agent plus tools.
+        </div>
+      </section>
+      <section>
+        <h2>Agent Reasoning Loop</h2>
+        <ol>
+          <li><strong>Observe</strong>: gather input, context, and state.</li>
+          <li><strong>Interpret</strong>: understand the user's goal and constraints.</li>
+          <li><strong>Plan</strong>: decide which step or tool should come next.</li>
+          <li><strong>Act</strong>: call a tool, query data, produce output, or trigger a workflow.</li>
+          <li><strong>Review</strong>: continue, escalate, or stop when the goal is reached.</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Google Cloud Tooling</h2>
+        <table>
+          <thead><tr><th>Service</th><th>Agent use case</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cloud Storage</strong></td><td>Store and retrieve files, documents, media, or intermediate artifacts.</td></tr>
+            <tr><td><strong>Cloud SQL / Spanner / Firestore</strong></td><td>Query structured or operational data.</td></tr>
+            <tr><td><strong>Cloud Run Functions</strong></td><td>Execute custom business logic as a tool.</td></tr>
+            <tr><td><strong>Document AI</strong></td><td>Extract structured information from unstructured documents.</td></tr>
+            <tr><td><strong>Maps APIs</strong></td><td>Location, distance, routing, and geocoding tasks.</td></tr>
+            <tr><td><strong>Vertex AI</strong></td><td>Build models and agents that can be used by other agents.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Product Distinctions</h2>
+        <table>
+          <thead><tr><th>Product</th><th>Best fit</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Gemini</strong></td><td>General multimodal generation, productivity, and ideation.</td></tr>
+            <tr><td><strong>NotebookLM</strong></td><td>Focused research over uploaded sources.</td></tr>
+            <tr><td><strong>Gemini Enterprise</strong></td><td>Enterprise-wide assistants, custom agents, and multimodal search.</td></tr>
+            <tr><td><strong>Vertex AI Search</strong></td><td>Ground answers in first-party, third-party, or Google knowledge sources.</td></tr>
+            <tr><td><strong>Vertex AI Agent Builder</strong></td><td>Build managed custom agents with tools and enterprise data.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <footer><a href="index.html">Back to reading index</a> | <a href="../gail.html">Main GAIL blog</a></footer>
+    </div>
+  </body>
+</html>

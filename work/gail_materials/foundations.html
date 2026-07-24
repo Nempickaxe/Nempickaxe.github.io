@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GAIL Foundations</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: "Georgia", "Times New Roman", serif; line-height: 1.8; margin: 0; color: #2c2c2c; background: #f4f6f9; }
+      .header { background: linear-gradient(135deg, #003366 0%, #007acc 100%); color: #fff; padding: 32px 60px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .header h1 { margin: 0; color: #fff; text-align: center; font-size: 2em; }
+      .home-button img, .author-photo { width: 44px; height: 44px; object-fit: cover; display: block; }
+      .author-photo { border-radius: 50%; }
+      .page-wrapper { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+      section { background: #fff; border-radius: 8px; padding: 36px 44px; margin-bottom: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+      h1 { color: #003366; margin-top: 0; } h2 { color: #00509e; } h3 { color: #007acc; }
+      a { color: #007acc; } table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95em; }
+      th { background: #003366; color: #fff; padding: 10px 14px; text-align: left; } td { border: 1px solid #d0e4f5; padding: 10px 14px; vertical-align: top; }
+      tr:nth-child(even) td { background: #f4f9ff; } .callout { background: #eef7ff; border-left: 5px solid #007acc; color: #003366; padding: 16px 20px; border-radius: 6px; margin: 20px 0; }
+      footer { text-align: center; font-size: 0.85em; color: #888; margin-top: 48px; padding-top: 20px; border-top: 1px solid #d0e4f5; }
+      @media (max-width: 720px) { .header { padding: 24px 20px; } .header h1 { font-size: 1.35em; } section { padding: 26px 22px; } }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../index.html" class="home-button"><img src="../images/home.png" alt="Home" /></a>
+      <h1>GenAI Foundations and Landscape</h1>
+      <a href="../../index.html"><img src="../images/nemish_bg.png" alt="Author's Photo" class="author-photo" /></a>
+    </header>
+    <div class="page-wrapper">
+      <section>
+        <h1>What to Read</h1>
+        <p>
+          This section covers the basic language of GenAI leadership: what generative AI can do,
+          where it fits in an organization, and how to separate augmentation from automation.
+        </p>
+        <div class="callout">
+          Key question: should AI assist a human, or should it run a complete workflow with review gates?
+        </div>
+      </section>
+      <section>
+        <h2>Augmentation vs Automation</h2>
+        <table>
+          <thead><tr><th>Pattern</th><th>Meaning</th><th>Good fit</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Augmentation</strong></td><td>AI assists a human, but the human makes the important judgment.</td><td>Writing, summarizing, analysis support, high-context decisions.</td></tr>
+            <tr><td><strong>Automation</strong></td><td>AI handles a task end to end under defined rules and review gates.</td><td>Repeatable workflows, routing, extraction, low-risk operational tasks.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>The Five GenAI Layers</h2>
+        <ol>
+          <li><strong>Infrastructure</strong>: compute, storage, networking, GPUs, TPUs, and runtime foundations.</li>
+          <li><strong>Models</strong>: Gemini, Gemma, Imagen, Veo, embeddings, and other foundation models.</li>
+          <li><strong>Platform</strong>: Vertex AI and managed services to build, tune, deploy, and evaluate.</li>
+          <li><strong>Agents</strong>: systems that reason, plan, call tools, and act toward goals.</li>
+          <li><strong>Applications</strong>: the user-facing assistant, automation, or product workflow.</li>
+        </ol>
+      </section>
+      <section>
+        <h2>Solution Selection Checklist</h2>
+        <ul>
+          <li>Start from the business problem and measurable outcome.</li>
+          <li>Decide whether the use case requires text, image, video, code, search, or action.</li>
+          <li>Check whether the system needs current enterprise data or only general model knowledge.</li>
+          <li>Define human review points before building the demo.</li>
+          <li>Choose the simplest tool that meets the governance and reliability bar.</li>
+        </ul>
+      </section>
+      <footer><a href="index.html">Back to reading index</a> | <a href="../gail.html">Main GAIL blog</a></footer>
+    </div>
+  </body>
+</html>

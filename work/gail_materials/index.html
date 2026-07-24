@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GAIL Reading Materials</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body { font-family: "Georgia", "Times New Roman", serif; line-height: 1.8; margin: 0; color: #2c2c2c; background: #f4f6f9; }
+      .header { background: linear-gradient(135deg, #003366 0%, #007acc 100%); color: #fff; padding: 32px 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .header h1 { font-size: 2.1em; margin: 0; color: #fff; text-align: center; }
+      .home-button img, .author-photo { width: 44px; height: 44px; object-fit: cover; display: block; }
+      .author-photo { border-radius: 50%; }
+      .page-wrapper { max-width: 960px; margin: 40px auto; padding: 0 24px 60px; }
+      section { background: #fff; border-radius: 8px; padding: 36px 44px; margin-bottom: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+      h1 { color: #003366; margin-top: 0; }
+      h2 { color: #00509e; }
+      h3 { color: #007acc; }
+      a { color: #007acc; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95em; }
+      th { background: #003366; color: #fff; padding: 10px 14px; text-align: left; }
+      td { border: 1px solid #d0e4f5; padding: 10px 14px; vertical-align: top; }
+      tr:nth-child(even) td { background: #f4f9ff; }
+      .callout { border-radius: 6px; padding: 16px 20px; margin: 20px 0; background: #eef7ff; border-left: 5px solid #007acc; color: #003366; }
+      footer { text-align: center; font-size: 0.85em; color: #888; margin-top: 48px; padding-top: 20px; border-top: 1px solid #d0e4f5; }
+      @media (max-width: 720px) { .header { padding: 24px 20px; } .header h1 { font-size: 1.45em; } section { padding: 26px 22px; } }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../index.html" class="home-button"><img src="../images/home.png" alt="Home" /></a>
+      <h1>GAIL Reading Materials</h1>
+      <a href="../../index.html"><img src="../images/nemish_bg.png" alt="Author's Photo" class="author-photo" /></a>
+    </header>
+
+    <div class="page-wrapper">
+      <section>
+        <h1>Section-wise Reading Pack</h1>
+        <p>
+          This reading pack supports the main GAIL blog. Each page is short, focused, and intended
+          to help revise one concept area at a time.
+        </p>
+        <div class="callout">
+          Start with foundations, then read responsible AI, grounding, agents, and strategy.
+          Use the sample exam links at the end to practice cue recognition.
+        </div>
+      </section>
+
+      <section>
+        <h2>Read Section-wise</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Read this page</th>
+              <th>What it covers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><a href="foundations.html">GenAI Foundations and Landscape</a></td>
+              <td>Augmentation vs automation, five GenAI layers, and solution selection.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><a href="responsible-ai.html">Responsible AI and Secure AI</a></td>
+              <td>HITL, SAIF, privacy, fairness, explainability, and governance.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><a href="grounding-rag.html">Grounding, RAG, and Prompting</a></td>
+              <td>Grounded answers, retrieval, prompting patterns, and hallucination reduction.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><a href="agents-tools.html">Agents, Tools, and Google Cloud Services</a></td>
+              <td>Reasoning loops, tool use, Vertex AI, Gemini Enterprise, and Agent Builder.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><a href="strategy-exam.html">Strategy, Metrics, and Exam Practice</a></td>
+              <td>Leadership loop, impact metrics, exam cues, and sample papers.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Sample Exam Papers from Medium</h2>
+        <ul>
+          <li><a href="https://medium.com/@sudha.sandhiya/generative-ai-leader-sample-questions-part-1-3fdad0f2b913" target="_blank" rel="noopener">Generative AI Leader sample questions - Part 1</a></li>
+          <li><a href="https://medium.com/@sudha.sandhiya/generative-ai-leader-sample-questions-part-2-8318458772de" target="_blank" rel="noopener">Generative AI Leader sample questions - Part 2</a></li>
+          <li><a href="https://medium.com/@sudha.sandhiya/generative-ai-leader-sample-questions-part-3-e4143b022c1a" target="_blank" rel="noopener">Generative AI Leader sample questions - Part 3</a></li>
+          <li><a href="https://medium.com/@sudha.sandhiya/generative-ai-leader-sample-questions-part-4-a07a9dc53388" target="_blank" rel="noopener">Generative AI Leader sample questions - Part 4</a></li>
+        </ul>
+      </section>
+
+      <footer>
+        <a href="../gail.html">Back to the main GAIL blog</a>
+      </footer>
+    </div>
+  </body>
+</html>
