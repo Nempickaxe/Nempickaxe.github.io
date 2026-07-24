@@ -4,24 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Cloud Generative AI Leader Certification</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        mermaid.initialize({
-          startOnLoad: true,
-          theme: "base",
-          themeVariables: {
-            primaryColor: "#eef7ff",
-            primaryTextColor: "#003366",
-            primaryBorderColor: "#007acc",
-            lineColor: "#007acc",
-            secondaryColor: "#fffbe6",
-            tertiaryColor: "#efffef",
-            fontFamily: "Georgia, Times New Roman, serif"
-          }
-        });
-      });
-    </script>
     <style>
       *, *::before, *::after { box-sizing: border-box; }
 
@@ -282,12 +264,15 @@
 
       .knowledge-graph {
         margin: 26px 0 8px;
-        background: #f8fbff;
-        border: 1px solid #d0e4f5;
         border-radius: 8px;
-        padding: 18px;
-        overflow-x: auto;
         box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      }
+      .knowledge-graph img {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+        border-radius: 8px;
+        border: 1px solid #d0e4f5;
       }
       .knowledge-graph-caption {
         font-size: 0.88em;
@@ -372,70 +357,11 @@
           the right human review loop, and measuring whether the work actually changes business outcomes.
         </p>
 
-        <div class="knowledge-graph" aria-label="Knowledge graph for Google Cloud Generative AI Leader concepts">
-          <pre class="mermaid">
-flowchart LR
-  GAIL["Generative AI Leadership"]
-
-  GAIL --> Strategy["Strategy"]
-  GAIL --> Responsible["Responsible AI"]
-  GAIL --> Secure["Secure AI"]
-  GAIL --> Grounding["Grounding and RAG"]
-  GAIL --> Prompting["Prompting"]
-  GAIL --> Agents["Agents"]
-  GAIL --> Cloud["Google Cloud Tools"]
-  GAIL --> Metrics["Metrics"]
-  GAIL --> Exam["Exam Readiness"]
-
-  Strategy --> Vision["Clear vision"]
-  Strategy --> UseCases["Prioritize high-impact use cases"]
-  Strategy --> Change["Drive organizational change"]
-  Strategy --> Adoption["Adoption and enablement"]
-
-  Responsible --> Fairness["Fairness"]
-  Responsible --> Privacy["Privacy"]
-  Responsible --> Explainability["Explainability"]
-  Responsible --> Accountability["Accountability"]
-  Responsible --> HITL["Human-in-the-loop review"]
-
-  Secure --> SAIF["SAIF"]
-  Secure --> IAM["Access control"]
-  Secure --> Monitoring["Monitoring"]
-  Secure --> DataProtection["Secure data lifecycle"]
-
-  Grounding --> Retrieval["Retrieve trusted context"]
-  Grounding --> Generate["Generate with sources"]
-  Grounding --> NotebookLM["NotebookLM"]
-  Grounding --> VertexSearch["Vertex AI Search"]
-
-  Prompting --> Role["Role prompting"]
-  Prompting --> FewShot["Few-shot examples"]
-  Prompting --> Chaining["Prompt chaining"]
-  Prompting --> ReAct["Reasoning plus action"]
-
-  Agents --> ReasoningLoop["Observe, interpret, plan, act"]
-  Agents --> Tools["Tool calls"]
-  Agents --> LiveData["Live enterprise data"]
-  Agents --> Guardrails["Escalation and review gates"]
-
-  Cloud --> Gemini["Gemini"]
-  Cloud --> VertexAI["Vertex AI"]
-  Cloud --> AgentBuilder["Vertex AI Agent Builder"]
-  Cloud --> GeminiEnterprise["Gemini Enterprise"]
-  Cloud --> APIs["Document AI, Maps, Vision, Speech APIs"]
-
-  Metrics --> ROI["ROI"]
-  Metrics --> Efficiency["Efficiency"]
-  Metrics --> CX["Customer experience"]
-  Metrics --> SecurityMetrics["Security outcomes"]
-
-  Exam --> CueRecognition["Cue recognition"]
-  Exam --> Practice["Sample papers"]
-  Exam --> Badge["Credly badge"]
-          </pre>
-        </div>
+        <figure class="knowledge-graph">
+          <img src="images/gail-concept-map.png" alt="Compact white-background GAIL concept map" />
+        </figure>
         <p class="knowledge-graph-caption">
-          Mermaid knowledge graph view of the GAIL learning map: leadership, governance, grounding,
+          Compact Excalidraw concept map of the GAIL learning map: leadership, governance, grounding,
           agents, cloud tooling, measurement, and exam readiness.
         </p>
       </section>
