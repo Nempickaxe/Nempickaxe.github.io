@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nempickaxe.github.io/sitemap.xml
