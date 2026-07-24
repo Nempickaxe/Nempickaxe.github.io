@@ -6,7 +6,6 @@
 
     <link rel="stylesheet" href="assets/css/styles.css" />
 
-    <!-- =====BOX ICONS===== -->
     <link
       href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
       rel="stylesheet"
@@ -54,7 +53,7 @@
           "Natural Language Processing",
           "Large Language Models",
           "Google Cloud Platform",
-          "Data Science",
+          "Production Data Science",
           "Deep Learning"
         ]
       }
@@ -65,18 +64,115 @@
       type="image/x-icon"
       href="/assets/img/icons8-working-with-a-laptop-96.png"
     />
+
+    <style>
+      .home__subtitle {
+        color: #555;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 520px;
+        margin: 1rem 0 1.5rem;
+      }
+
+      .home__cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .button--secondary {
+        background-color: transparent;
+        color: var(--first-color);
+        border: 2px solid var(--first-color);
+      }
+
+      .about__highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .about__highlight {
+        background: #f4f7ff;
+        border: 1px solid #dbe7ff;
+        border-radius: 0.5rem;
+        padding: 0.85rem;
+      }
+
+      .about__highlight strong {
+        display: block;
+        color: var(--first-color);
+        margin-bottom: 0.25rem;
+      }
+
+      .work-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      .work-card {
+        background: #fff;
+        border: 1px solid #e3e8f2;
+        border-radius: 0.75rem;
+        padding: 1.35rem;
+        box-shadow: 0 4px 18px rgba(14, 36, 49, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .work-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(14, 36, 49, 0.14);
+      }
+
+      .work-card h3 {
+        color: var(--first-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .work-card p {
+        color: #555;
+        line-height: 1.65;
+      }
+
+      .work-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin: 1rem 0;
+      }
+
+      .work-tags span {
+        background: #eef4ff;
+        color: #0e2449;
+        border-radius: 999px;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .work-card a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--first-color);
+        font-weight: 600;
+      }
+
+      .skills__name {
+        line-height: 1.35;
+      }
+    </style>
   </head>
+
   <body>
-    <!--===== HEADER =====-->
     <header class="l-header">
       <nav class="nav bd-grid">
         <div>
           <a href="#" class="nav__logo">Nemish</a>
         </div>
-
-        <!-- <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div> -->
 
         <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
@@ -97,6 +193,7 @@
                 href="https://flowcv.com/resume/ho6f862si7"
                 class="nav__link button"
                 target="_blank"
+                rel="noopener"
                 style="clip-path: polygon(80% 0%, 20% 0%, 0% 100%, 100% 100%); background-color: transparent;"
                 >Resume</a
               >
@@ -106,6 +203,7 @@
                 href="https://topmate.io/nemish"
                 class="nav__link button"
                 target="_blank"
+                rel="noopener"
                 style="clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
                 >Contact</a
               >
@@ -120,26 +218,44 @@
     </header>
 
     <main class="l-main">
-      <!--===== HOME =====-->
       <section class="home bd-grid" id="home">
         <div class="home__data">
           <h1 class="home__title">
             Hi,<br />I am <span class="home__title-color">Nemish</span
             ><br />Data Scientist
           </h1>
+          <p class="home__subtitle">
+            I build production data science systems across machine learning,
+            NLP, LLMs, cloud platforms, and applied AI workflows.
+          </p>
 
-          <a href="https://topmate.io/nemish" target="_blank" class="button"
-            >Contact</a
-          >
+          <div class="home__cta">
+            <a href="#work" class="button">View Work</a>
+            <a
+              href="https://topmate.io/nemish"
+              target="_blank"
+              rel="noopener"
+              class="button button--secondary"
+              >Contact</a
+            >
+          </div>
         </div>
 
         <div class="home__social">
           <a
             href="https://www.linkedin.com/in/nemishkanwar/"
             class="home__social-icon"
+            aria-label="LinkedIn profile"
+            target="_blank"
+            rel="noopener"
             ><i class="bx bxl-linkedin"></i
           ></a>
-          <a href="https://github.com/Nempickaxe" class="home__social-icon"
+          <a
+            href="https://github.com/Nempickaxe"
+            class="home__social-icon"
+            aria-label="GitHub profile"
+            target="_blank"
+            rel="noopener"
             ><i class="bx bxl-github"></i
           ></a>
         </div>
@@ -150,6 +266,8 @@
             viewBox="0 0 479 467"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
+            role="img"
+            aria-label="Portrait illustration of Nemish Kanwar"
           >
             <mask id="mask0" mask-type="alpha">
               <path
@@ -171,45 +289,47 @@
         </div>
       </section>
 
-      <!--===== ABOUT =====-->
       <section class="about section" id="about">
         <h2 class="section-title">About</h2>
 
         <div class="about__container bd-grid">
           <div class="about__img">
-            <img src="assets/img/nemish.jpg" alt="" />
+            <img src="assets/img/nemish.jpg" alt="Nemish Kanwar, Data Scientist" />
           </div>
 
           <div>
-            <h2 class="about__subtitle">I am Nemish</h2>
+            <h2 class="about__subtitle">I am Nemish Kanwar</h2>
             <p class="about__text">
-              <b
-                >Passionate Data Scientist with ~8 years of total experience,
-                including 5 years in startups</b
-              >, specializing in building data-intensive machine learning models
-              and addressing complex architectural and scalability challenges,
-              with a focus on
-              <b>Natural Language Processing (NLP) and Deep Learning</b>. I have
-              first-hand experience of designing quality, flexible, and
-              performant data science systems, products, and services at scale.
-              Notably, as the first Data Scientist in two startups, I undertook
-              a leadership role, overseeing recruitment, team setup, mentoring,
-              and problem statement design,
-              <b>Solely accountable for fostering team growth and success.</b>
-
-              <br />Note: I am particularly interested in exploring
-              opportunities that involve working on
-              <b>Large Language Models (LLMs)</b> to further expand my expertise
-              in this transformative field. I possess a robust technical stack
-              comprising <b>Databricks, Docker, Airflow, AWS, and GCP</b>.
-              Demonstrated success in deploying live systems, promoting
-              collaboration, and mentoring colleagues with a growth mindset.
+              I am a data scientist with about 8 years of experience building
+              machine learning and data-intensive systems. My work spans NLP,
+              deep learning, LLMs, cloud platforms, and production-grade data
+              science architecture.
             </p>
+            <p class="about__text">
+              I enjoy turning ambiguous business problems into practical AI and
+              ML systems: clarifying the problem, designing the data path,
+              building reliable models or workflows, and creating artifacts
+              others can reuse.
+            </p>
+
+            <div class="about__highlights">
+              <div class="about__highlight">
+                <strong>Focus</strong>
+                ML, NLP, LLMs, applied AI
+              </div>
+              <div class="about__highlight">
+                <strong>Platforms</strong>
+                GCP, AWS, Docker, Airflow
+              </div>
+              <div class="about__highlight">
+                <strong>Strength</strong>
+                Production data science systems
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!--===== SKILLS =====-->
       <section class="skills section" id="skills">
         <h2 class="section-title">Professional Skills</h2>
         <div class="skills__container bd-grid">
@@ -218,90 +338,74 @@
               <div class="skills__data">
                 <h3>Languages</h3>
                 <div class="skills__names">
-                  <img
-                    src="assets/img/python.png"
-                    class="skills__icon"
-                    alt=""
-                  />
+                  <img src="assets/img/python.png" class="skills__icon" alt="Python" />
                   <span class="skills__name">Python</span>
                 </div>
                 <div class="skills__names">
-                  <img src="assets/img/r.png" class="skills__icon" alt="" />
+                  <img src="assets/img/r.png" class="skills__icon" alt="R" />
                   <span class="skills__name">R</span>
                 </div>
               </div>
               <div class="skills__data">
                 <h3>Frameworks</h3>
                 <div class="skills__names">
-                  <img
-                    src="assets/img/pytorch.png"
-                    class="skills__icon"
-                    alt=""
-                  />
+                  <img src="assets/img/pytorch.png" class="skills__icon" alt="PyTorch" />
                   <span class="skills__name">PyTorch</span>
                 </div>
                 <div class="skills__names">
-                  <img
-                    src="assets/img/tensorflow.png"
-                    class="skills__icon"
-                    alt=""
-                  />
-                  <span class="skills__name">Tensorflow</span>
+                  <img src="assets/img/tensorflow.png" class="skills__icon" alt="TensorFlow" />
+                  <span class="skills__name">TensorFlow</span>
                 </div>
               </div>
               <div class="skills__data">
-                <h3>Deep Learning Architectures</h3>
+                <h3>Deep Learning</h3>
                 <div class="skills__names">
-                  <span class="skills__name">LLM</span>
+                  <span class="skills__name">LLMs</span>
                 </div>
                 <div class="skills__names">
-                  <span class="skills__name">LSTM</span>
+                  <span class="skills__name">NLP</span>
                 </div>
                 <div class="skills__names">
-                  <span class="skills__name">CNN</span>
+                  <span class="skills__name">CNNs</span>
                 </div>
                 <div class="skills__names">
-                  <span class="skills__name">RNN</span>
+                  <span class="skills__name">RNNs / LSTMs</span>
                 </div>
               </div>
               <div class="skills__data">
-                <h3>Full Stack</h3>
+                <h3>Engineering</h3>
                 <div class="skills__names">
-                  <img src="assets/img/html.png" class="skills__icon" alt="" />
+                  <img src="assets/img/html.png" class="skills__icon" alt="HTML" />
                   <span class="skills__name">HTML</span>
                 </div>
                 <div class="skills__names">
-                  <img src="assets/img/css.png" class="skills__icon" alt="" />
+                  <img src="assets/img/css.png" class="skills__icon" alt="CSS" />
                   <span class="skills__name">CSS</span>
                 </div>
                 <div class="skills__names">
-                  <img src="assets/img/js.png" class="skills__icon" alt="" />
+                  <img src="assets/img/js.png" class="skills__icon" alt="JavaScript" />
                   <span class="skills__name">JavaScript</span>
                 </div>
               </div>
               <div class="skills__data">
                 <h3>Cloud</h3>
                 <div class="skills__names">
-                  <img src="assets/img/gcp.png" class="skills__icon" alt="" />
+                  <img src="assets/img/gcp.png" class="skills__icon" alt="Google Cloud Platform" />
                   <span class="skills__name">GCP</span>
                 </div>
                 <div class="skills__names">
-                  <img src="assets/img/aws.png" class="skills__icon" alt="" />
+                  <img src="assets/img/aws.png" class="skills__icon" alt="Amazon Web Services" />
                   <span class="skills__name">AWS</span>
                 </div>
               </div>
               <div class="skills__data">
                 <h3>Visualization</h3>
                 <div class="skills__names">
-                  <img
-                    src="assets/img/plotly.png"
-                    class="skills__icon"
-                    alt=""
-                  />
+                  <img src="assets/img/plotly.png" class="skills__icon" alt="Plotly" />
                   <span class="skills__name">Plotly</span>
                 </div>
                 <div class="skills__names">
-                  <img src="assets/img/bokeh.png" class="skills__icon" alt="" />
+                  <img src="assets/img/bokeh.png" class="skills__icon" alt="Bokeh" />
                   <span class="skills__name">Bokeh</span>
                 </div>
               </div>
@@ -310,45 +414,94 @@
         </div>
       </section>
 
-      <!--===== WORK =====-->
-      <section class="work" id="work">
+      <section class="work section" id="work">
         <h2 class="section-title">Work</h2>
-        <p class="work-para">Some pieces I have worked on:</p>
-        <ol class="work-list">
-          <li>
-            <a href="work/gail.html" target="_blank"
-              >Google Cloud Generative AI Leader Certification</a
-            >
-            - Learning journey and practical enterprise GenAI takeaways
-          </li>
-          <li>
-            <a href="work/comp_sub.html" target="_blank"
-              >Complement and Supplement Analysis</a
-            >
-            - Paper overview
-          </li>
-          <li>
-            <a href="work/tutorial_iac/Tutorial_IaC.html" target="_blank"
-              >Terraform Crash Course - 1 Hour to Infrastructure as Code</a
-            >
-            - Tutorial on Terraform
-          </li>
-          <!-- Add more projects as needed -->
-        </ol>
+        <p class="work-para">
+          Selected writing and projects across applied AI, data science systems,
+          infrastructure, and technical explainability.
+        </p>
+
+        <div class="work-grid">
+          <article class="work-card">
+            <h3>Google Cloud Generative AI Leader</h3>
+            <p>
+              Learning journey and enterprise GenAI takeaways covering
+              responsible AI, grounding and RAG, agents, Gemini, Vertex AI,
+              metrics, and certification preparation.
+            </p>
+            <div class="work-tags">
+              <span>GenAI</span>
+              <span>GCP</span>
+              <span>Agents</span>
+              <span>Responsible AI</span>
+            </div>
+            <a href="work/gail.html" target="_blank" rel="noopener">
+              Read the guide <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </article>
+
+          <article class="work-card">
+            <h3>Complement and Substitute Analysis</h3>
+            <p>
+              A practical explanation of product complement and substitute
+              relationships using sales data, network science, null models, and
+              Spark implementation notes.
+            </p>
+            <div class="work-tags">
+              <span>Data Science</span>
+              <span>Network Analysis</span>
+              <span>Retail</span>
+              <span>Spark</span>
+            </div>
+            <a href="work/comp_sub.html" target="_blank" rel="noopener">
+              Read the article <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </article>
+
+          <article class="work-card">
+            <h3>Terraform Crash Course</h3>
+            <p>
+              A hands-on introduction to Infrastructure as Code with Terraform,
+              written as a practical one-hour tutorial for engineers getting
+              started with repeatable infrastructure.
+            </p>
+            <div class="work-tags">
+              <span>Terraform</span>
+              <span>IaC</span>
+              <span>Cloud</span>
+              <span>DevOps</span>
+            </div>
+            <a href="work/tutorial_iac/Tutorial_IaC.html" target="_blank" rel="noopener">
+              Open tutorial <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </article>
+        </div>
       </section>
     </main>
 
-    <!--===== FOOTER =====-->
     <footer class="footer">
       <p class="footer__title">Nemish</p>
       <div class="footer__social">
-        <a href="https://www.linkedin.com/in/nemishkanwar/" class="footer__icon"
+        <a
+          href="https://www.linkedin.com/in/nemishkanwar/"
+          class="footer__icon"
+          aria-label="LinkedIn profile"
+          target="_blank"
+          rel="noopener"
           ><i class="bx bxl-linkedin"></i
         ></a>
-        <a href="https://github.com/Nempickaxe" class="footer__icon"
+        <a
+          href="https://github.com/Nempickaxe"
+          class="footer__icon"
+          aria-label="GitHub profile"
+          target="_blank"
+          rel="noopener"
           ><i class="bx bxl-github"></i
         ></a>
       </div>
+      <p class="footer__copy">
+        Data science, machine learning, LLMs, and production AI systems.
+      </p>
     </footer>
 
     <script src="assets/js/main.js"></script>
