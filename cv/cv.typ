@@ -11,36 +11,35 @@
   keywords: ("Data Architect", "Data Science", "ML Engineering", "Lakehouse", "Cloud Modernization", "Spark", "GCP", "Terraform", "MLOps", "Generative AI"),
 )
 #set page(paper: "a4", margin: (x: 1.6cm, y: 1.4cm))
-#set text(font: ("Inter", "Helvetica Neue", "Arial", "Liberation Sans"), size: 9.4pt, fill: ink, lang: "en")
-#set par(justify: false, leading: 0.55em, spacing: 0.7em)
-#set list(indent: 0.2em, body-indent: 0.5em, spacing: 0.45em, marker: [•])
+#set text(font: ("Liberation Sans", "Arial", "Helvetica Neue", "Helvetica"), size: 9.4pt, fill: ink, lang: "en")
+#set par(justify: false, leading: 0.6em, spacing: 0.8em)
+#set list(indent: 0.2em, body-indent: 0.55em, spacing: 0.55em, marker: [•])
 
-#show heading.where(level: 1): it => {
-  v(0.5em)
-  text(size: 10pt, weight: "bold", fill: accent, tracking: 0.08em, upper(it.body))
-  v(-0.55em)
-  line(length: 100%, stroke: 0.6pt + accent)
-  v(0.1em)
-}
+#show heading.where(level: 1): it => block(above: 1.3em, below: 0.9em, sticky: true, stack(
+  spacing: 0.4em,
+  text(size: 10pt, weight: "bold", fill: accent, tracking: 0.08em, upper(it.body)),
+  line(length: 100%, stroke: 0.6pt + accent),
+))
 
-#let role(title, company, dates, place: none) = block(breakable: false, above: 0.9em, below: 0.4em)[
+#let role(title, company, dates, place: none) = block(sticky: true, above: 1.1em, below: 0.6em)[
   #grid(
     columns: (1fr, auto),
     [*#title* · #company],
     text(fill: muted)[#dates#if place != none [ · #place]],
   )
 ]
-#let sub(t) = block(above: 0.7em, below: 0.3em, text(weight: "semibold", fill: accent)[#t])
+#let sub(t) = block(sticky: true, above: 1em, below: 0.65em, text(weight: "semibold", fill: accent)[#t])
 #let skill(label, items) = grid(
-  columns: (3.6cm, 1fr), column-gutter: 0.3cm, row-gutter: 0.4em,
+  columns: (3.6cm, 1fr), column-gutter: 0.3cm, row-gutter: 0.55em,
   text(weight: "bold")[#label], [#items],
 )
 
 // ── Header ─────────────────────────────────────────────
 #align(left)[
   #text(size: 24pt, weight: "bold")[Nemish Kanwar] \
+  #v(0.15em)
   #text(size: 11.5pt, fill: accent, weight: "semibold")[Senior Data Scientist & Data Platform Architect] \
-  #v(0.2em)
+  #v(0.35em)
   #text(fill: muted)[Bengaluru, India · #link("mailto:nemishkanwar@gmail.com")[nemishkanwar\@gmail.com] · 10 years in data, Spark & cloud]
 ]
 
