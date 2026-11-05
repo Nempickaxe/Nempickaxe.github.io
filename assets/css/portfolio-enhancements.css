@@ -2,8 +2,10 @@
    Keep this file loaded after assets/css/styles.css. */
 
 .nav__link--skew-left {
-  background-color: transparent;
-  clip-path: polygon(80% 0%, 20% 0%, 0% 100%, 100% 100%);
+  background-color: #0056b3;
+  color: #fff;
+  clip-path: none;
+  margin-right: 0.5rem;
 }
 
 .nav__link--skew-right {
