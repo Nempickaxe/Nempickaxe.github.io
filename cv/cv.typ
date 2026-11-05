@@ -72,7 +72,7 @@ Data platform architect and Senior Data Scientist with 10 years of experience (7
 - Completed the Generative AI Leadership certification (GAIL) in 2026.
 
 #sub("Platform Engineering & Infrastructure as Code")
-- Led the migration of 300+ repositories from GitHub Enterprise to GitHub ahead of a hard deadline with no escalations; planned phases, coordinated four engineers and presented to VP-level stakeholders.
+- Led the migration of 10 repositories from GitHub Enterprise to GitHub ahead of a hard deadline with no escalations; planned phases, coordinated four engineers and presented to VP-level stakeholders.
 - Introduced Terraform + Atlantis for workflow pipelines: reusable modules and template repositories, per-developer dev deployments, dev/stage/prod promotion, documentation and recorded training that moved several teams off UI-based setup.
 - Migrated batch jobs from Oozie and spark-submit to Shepherd and Argus with no skipped runs.
 - Added OpenTelemetry to Spark and API services and ran onboarding for Merch teams; handled a critical dependency vulnerability across GCP workloads.
